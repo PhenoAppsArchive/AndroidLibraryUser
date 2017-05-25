@@ -4,6 +4,7 @@ package org.wheatgenetics.androidlibraryuser;
  * Uses:
  * android.os.Bundle
  * android.support.v7.app.AppCompatActivity
+ * android.view.View
  * android.widget.TextView
  *
  * org.wheatgenetics.androidlibrary.Utils
@@ -12,6 +13,8 @@ package org.wheatgenetics.androidlibraryuser;
 
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
+    private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
+
     @java.lang.Override
     protected void onCreate(final android.os.Bundle savedInstanceState)
     {
@@ -24,5 +27,12 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         assert textView != null;
         textView.setText(java.lang.String.format("doubleOf(%d) is %d",
             number, org.wheatgenetics.androidlibrary.Utils.doubleOf(number)));
+    }
+
+    public void onClick(final android.view.View view)
+    {
+        if (this.changeLogAlertDialog == null) this.changeLogAlertDialog =
+            new org.wheatgenetics.changelog.ChangeLogAlertDialog(
+                this, org.wheatgenetics.androidlibraryuser.R.raw.changelog);
     }
 }
