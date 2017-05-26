@@ -2,7 +2,7 @@
 
 Android Library User is a minimal Android Phone and Tablet app.  It is the scaffolding used to test an [Android Library](https://developer.android.com/studio/projects/android-library.html) called Android Library.
 
-Android Library provides a utility class and a change log class.
+Android Library provides a utility class and a change log class and is a thin wrapper around the impressive [Zebra Crossing Project](https://github.com/zxing/zxing).
 
 ### Developer
 Peter J. Rosario - [peterrosario@ksu.edu](mailto:peterrosario@ksu.edu)
