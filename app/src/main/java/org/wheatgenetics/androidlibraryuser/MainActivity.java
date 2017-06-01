@@ -2,6 +2,7 @@ package org.wheatgenetics.androidlibraryuser;
 
 /**
  * Uses:
+ * android.content.Intent
  * android.os.Bundle
  * android.support.v7.app.AppCompatActivity
  * android.view.Menu
@@ -67,6 +68,18 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
                 break;
         }
         return true;
+    }
+
+    @java.lang.Override
+    protected void onActivityResult(final int requestCode,
+    final int resultCode, final android.content.Intent data)
+    {
+        java.lang.String barcode = org.wheatgenetics.zxing.BarcodeScanner.parseActivityResult(
+            requestCode, resultCode, data);
+        if (null == barcode) barcode = "null";
+
+        assert null != this.textView;
+        this.textView.setText(barcode);
     }
 
     public void onChangeLogButtonClick(final android.view.View view) throws java.io.IOException
