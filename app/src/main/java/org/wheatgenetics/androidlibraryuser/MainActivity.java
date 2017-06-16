@@ -15,7 +15,6 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.androidlibrary.Utils
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
- * org.wheatgenetics.javalib.Utils
  * org.wheatgenetics.zxing.BarcodeScanner
  */
 
@@ -33,11 +32,11 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
         this.textView = (android.widget.TextView)
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
+
         assert null != this.textView;
-        final int number = 2;
-        this.textView.setText(java.lang.String.format("doubleOf(doubleOf(%d)) is %d", number,
-            org.wheatgenetics.androidlibrary.Utils.doubleOf(
-                org.wheatgenetics.javalib.Utils.doubleOf(number))));
+        final java.lang.String unadjusted = "  2 leading spaces";
+        this.textView.setText(java.lang.String.format("adjust(\"%s\") is \"%s\"",
+            unadjusted, org.wheatgenetics.androidlibrary.Utils.adjust(unadjusted)));
     }
 
     @java.lang.Override
@@ -45,8 +44,6 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         new android.view.MenuInflater(this).inflate(
             org.wheatgenetics.androidlibrary.R.menu.camera_options_menu, menu);
-        assert null != menu;
-        menu.findItem(org.wheatgenetics.androidlibrary.R.id.cameraOptionsMenuItem).setVisible(true);
         return true;
     }
 
