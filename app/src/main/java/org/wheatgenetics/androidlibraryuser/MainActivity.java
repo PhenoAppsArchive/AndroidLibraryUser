@@ -12,7 +12,6 @@ package org.wheatgenetics.androidlibraryuser;
  * android.widget.TextView
  *
  * org.wheatgenetics.androidlibrary.R
- * org.wheatgenetics.androidlibrary.Utils
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
  * org.wheatgenetics.zxing.BarcodeScanner
@@ -20,7 +19,6 @@ package org.wheatgenetics.androidlibraryuser;
 
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
-    private android.widget.TextView                          textView                   ;
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
 
@@ -29,14 +27,6 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
-
-        this.textView = (android.widget.TextView)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
-
-        assert null != this.textView;
-        final java.lang.String unadjusted = "  2 leading spaces";
-        this.textView.setText(java.lang.String.format("adjust(\"%s\") is \"%s\"",
-            unadjusted, org.wheatgenetics.androidlibrary.Utils.adjust(unadjusted)));
     }
 
     @java.lang.Override
@@ -70,8 +60,10 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
             requestCode, resultCode, data);
         if (null == barcode) barcode = "null";
 
-        assert null != this.textView;
-        this.textView.setText(barcode);
+        final android.widget.TextView textView = (android.widget.TextView)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
+        assert null != textView;
+        textView.setText(barcode);
     }
 
     public void onButtonClick(final android.view.View view) throws java.io.IOException
