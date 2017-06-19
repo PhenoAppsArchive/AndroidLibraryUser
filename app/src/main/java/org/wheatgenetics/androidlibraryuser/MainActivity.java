@@ -3,6 +3,7 @@ package org.wheatgenetics.androidlibraryuser;
 /**
  * Uses:
  * android.content.Intent
+ * android.net.Uri
  * android.os.Bundle
  * android.support.v7.app.AppCompatActivity
  * android.view.Menu
@@ -11,6 +12,10 @@ package org.wheatgenetics.androidlibraryuser;
  * android.view.View
  * android.widget.TextView
  *
+ * org.wheatgenetics.about.OtherApps
+ * org.wheatgenetics.about.OtherApps.Index
+ * org.wheatgenetics.about.OtherAppsAlertDialog
+ * org.wheatgenetics.about.OtherAppsAlertDialog.Handler
  * org.wheatgenetics.androidlibrary.R
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
@@ -21,6 +26,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
+    private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
 
     @java.lang.Override
     protected void onCreate(final android.os.Bundle savedInstanceState)
@@ -66,11 +72,30 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         textView.setText(barcode);
     }
 
-    public void onButtonClick(final android.view.View view) throws java.io.IOException
+    public void onChangeLogButtonClick(final android.view.View view) throws java.io.IOException
     {
         if (null == this.changeLogAlertDialog) this.changeLogAlertDialog =
             new org.wheatgenetics.changelog.ChangeLogAlertDialog(
                 this, org.wheatgenetics.androidlibraryuser.R.raw.changelog);
         this.changeLogAlertDialog.show();
+    }
+
+    public void onOtherAppsButtonClick(final android.view.View view)
+    {
+        if (null == this.otherAppsAlertDialog)
+            this.otherAppsAlertDialog = new org.wheatgenetics.about.OtherAppsAlertDialog(this,
+                new org.wheatgenetics.about.OtherApps(
+                    org.wheatgenetics.about.OtherApps.Index.INVENTORY),
+                new org.wheatgenetics.about.OtherAppsAlertDialog.Handler()
+                {
+                    @java.lang.Override
+                    public void handleItemClick(final java.lang.String uriString)
+                    {
+                        org.wheatgenetics.androidlibraryuser.MainActivity.this.startActivity(
+                            new android.content.Intent(android.content.Intent.ACTION_VIEW,
+                                android.net.Uri.parse(uriString)));
+                    }
+                });
+        this.otherAppsAlertDialog.show();
     }
 }
