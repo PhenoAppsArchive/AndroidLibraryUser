@@ -2,6 +2,7 @@ package org.wheatgenetics.androidlibraryuser;
 
 /**
  * Uses:
+ * android.content.Context
  * android.content.Intent
  * android.net.Uri
  * android.os.Bundle
@@ -19,14 +20,18 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.androidlibrary.R
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
+ * org.wheatgenetics.usb.DeviceListTester
  * org.wheatgenetics.zxing.BarcodeScanner
  */
 
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
+    private android.widget.TextView textView;
+
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
+    private org.wheatgenetics.usb.DeviceListTester           deviceListTester     = null;
 
     private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
     {
@@ -40,6 +45,9 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
+
+        this.textView = (android.widget.TextView)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
     }
 
     @java.lang.Override
@@ -67,16 +75,14 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
     @java.lang.Override
     protected void onActivityResult(final int requestCode,
-        final int resultCode, final android.content.Intent data)
+    final int resultCode, final android.content.Intent data)
     {
         java.lang.String barcode = org.wheatgenetics.zxing.BarcodeScanner.parseActivityResult(
             requestCode, resultCode, data);
         if (null == barcode) barcode = "null";
 
-        final android.widget.TextView textView = (android.widget.TextView)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
-        assert null != textView;
-        textView.setText(barcode);
+        assert null != this.textView;
+        this.textView.setText(barcode);
     }
     // endregion
 
@@ -105,6 +111,17 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
                     }
                 });
         this.otherAppsAlertDialog.show();
+    }
+
+    public void onDeviceListButtonClick(final android.view.View view)
+    {
+        if (null == this.deviceListTester)
+            this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(
+                (android.hardware.usb.UsbManager)
+                    this.getSystemService(android.content.Context.USB_SERVICE));
+
+        assert null != this.textView;
+        this.textView.setText(this.deviceListTester.testSize());
     }
     // endregion
 }
