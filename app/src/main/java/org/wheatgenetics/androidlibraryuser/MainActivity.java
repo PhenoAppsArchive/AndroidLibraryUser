@@ -2,7 +2,6 @@ package org.wheatgenetics.androidlibraryuser;
 
 /**
  * Uses:
- * android.content.Context
  * android.content.Intent
  * android.net.Uri
  * android.os.Bundle
@@ -118,9 +117,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     public void onDeviceListButtonClick(final android.view.View view)
     {
         if (null == this.deviceListTester)
-            this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(
-                (android.hardware.usb.UsbManager)
-                    this.getSystemService(android.content.Context.USB_SERVICE));
+            this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
 
         java.lang.String text;
         if (this.deviceListButtonClickCount++ % 2 == 0)
