@@ -33,6 +33,8 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
     private org.wheatgenetics.usb.DeviceListTester           deviceListTester     = null;
 
+    private int deviceListButtonClickCount = 0;
+
     private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
     {
         this.startActivity(new android.content.Intent(
@@ -120,8 +122,14 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
                 (android.hardware.usb.UsbManager)
                     this.getSystemService(android.content.Context.USB_SERVICE));
 
+        java.lang.String text;
+        if (this.deviceListButtonClickCount++ % 2 == 0)
+            text = this.deviceListTester.size();
+        else
+            text = this.deviceListTester.devices();
+
         assert null != this.textView;
-        this.textView.setText(this.deviceListTester.testSize());
+        this.textView.setText(text);
     }
     // endregion
 }
