@@ -28,6 +28,13 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
 
+    private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
+    {
+        this.startActivity(new android.content.Intent(
+            android.content.Intent.ACTION_VIEW, android.net.Uri.parse(uriString)));
+    }
+
+    // region Overridden Methods
     @java.lang.Override
     protected void onCreate(final android.os.Bundle savedInstanceState)
     {
@@ -71,7 +78,9 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         assert null != textView;
         textView.setText(barcode);
     }
+    // endregion
 
+    // region Event Handlers
     public void onChangeLogButtonClick(final android.view.View view) throws java.io.IOException
     {
         if (null == this.changeLogAlertDialog) this.changeLogAlertDialog =
@@ -91,11 +100,11 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
                     @java.lang.Override
                     public void handleItemClick(final java.lang.String uriString)
                     {
-                        org.wheatgenetics.androidlibraryuser.MainActivity.this.startActivity(
-                            new android.content.Intent(android.content.Intent.ACTION_VIEW,
-                                android.net.Uri.parse(uriString)));
+                        org.wheatgenetics.androidlibraryuser.MainActivity.
+                            this.handleOtherAppsAlertDialogItemClick(uriString);
                     }
                 });
         this.otherAppsAlertDialog.show();
     }
+    // endregion
 }
