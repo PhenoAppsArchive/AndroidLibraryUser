@@ -6,7 +6,6 @@ package org.wheatgenetics.androidlibraryuser;
  * android.net.Uri
  * android.os.Bundle
  * android.support.v7.app.AppCompatActivity
- * android.util.Log
  * android.view.Menu
  * android.view.MenuInflater
  * android.view.MenuItem
@@ -27,8 +26,6 @@ package org.wheatgenetics.androidlibraryuser;
 
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
-    private android.widget.TextView textView;
-
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
@@ -38,14 +35,19 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private int deviceListButtonClickCount = 0;
 
     // region Private Methods
+    private void setTextViewText(final java.lang.String text)
+    {
+        final android.widget.TextView textView = (android.widget.TextView)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
+        assert null != text;
+        textView.setText(text);
+    }
+
     private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
     {
         this.startActivity(new android.content.Intent(
             android.content.Intent.ACTION_VIEW, android.net.Uri.parse(uriString)));
     }
-
-    private static void sendVerboseLogMsg(final java.lang.String msg)
-    { if (null != msg) android.util.Log.v("AndroidLibraryBuilder", msg); }
     // endregion
 
     // region Overridden Methods
@@ -54,9 +56,6 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
-
-        this.textView = (android.widget.TextView)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
     }
 
     @java.lang.Override
@@ -89,9 +88,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         java.lang.String barcode = org.wheatgenetics.zxing.BarcodeScanner.parseActivityResult(
             requestCode, resultCode, data);
         if (null == barcode) barcode = "null";
-
-        assert null != this.textView;
-        this.textView.setText(barcode);
+        this.setTextViewText(barcode);
     }
     // endregion
 
@@ -128,13 +125,9 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
 
         if (this.deviceListButtonClickCount == 0)
-        {
-            assert null != this.textView;
-            this.textView.setText(this.deviceListTester.size());
-        }
+            this.setTextViewText(this.deviceListTester.size());
         else
-            org.wheatgenetics.androidlibraryuser.MainActivity.sendVerboseLogMsg(
-                this.deviceListTester.information());
+            this.setTextViewText(this.deviceListTester.information());
 
         if (this.deviceListButtonClickCount >= 1)
             this.deviceListButtonClickCount = 0;
@@ -146,8 +139,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         if (null == this.scaleTester)
             this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
-        org.wheatgenetics.androidlibraryuser.MainActivity.sendVerboseLogMsg(
-            this.scaleTester.information());
+        this.setTextViewText(this.scaleTester.information());
     }
     // endregion
 }
