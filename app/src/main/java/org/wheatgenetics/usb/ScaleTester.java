@@ -29,4 +29,16 @@ public class ScaleTester extends java.lang.Object
     }
 
     public java.lang.String information() { return this.extraDevice().information(); }
+
+    public java.lang.String read()
+    {
+        final byte buffer[]    = new byte[128]                  ;
+        final int  returnValue = this.extraDevice().read(buffer);
+
+        if (returnValue > 0)
+            return java.lang.String.format(
+                "length: %d, buffer: %s", returnValue, buffer.toString());
+        else
+            return java.lang.String.format("length: %d", returnValue);
+    }
 }

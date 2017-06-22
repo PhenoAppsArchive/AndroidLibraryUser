@@ -32,7 +32,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private org.wheatgenetics.usb.DeviceListTester           deviceListTester     = null;
     private org.wheatgenetics.usb.ScaleTester                scaleTester          = null;
 
-    private int deviceListButtonClickCount = 0;
+    private int deviceListButtonClickCount = 0, scaleButtonClickCount = 0;
 
     // region Private Methods
     private void setTextViewText(final java.lang.String text)
@@ -124,7 +124,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         if (null == this.deviceListTester)
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
 
-        if (this.deviceListButtonClickCount == 0)
+        if (0 == this.deviceListButtonClickCount)
             this.setTextViewText(this.deviceListTester.size());
         else
             this.setTextViewText(this.deviceListTester.information());
@@ -139,7 +139,16 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         if (null == this.scaleTester)
             this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
-        this.setTextViewText(this.scaleTester.information());
+
+        if (0 == this.scaleButtonClickCount)
+            this.setTextViewText(this.scaleTester.information());
+        else
+            this.setTextViewText(this.scaleTester.read());
+
+        if (this.scaleButtonClickCount >= 1)
+            this.scaleButtonClickCount = 0;
+        else
+            this.scaleButtonClickCount++;
     }
     // endregion
 }
