@@ -6,6 +6,7 @@ package org.wheatgenetics.androidlibraryuser;
  * android.net.Uri
  * android.os.Bundle
  * android.support.v7.app.AppCompatActivity
+ * android.util.Log
  * android.view.Menu
  * android.view.MenuInflater
  * android.view.MenuItem
@@ -34,11 +35,16 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
     private int deviceListButtonClickCount = 0;
 
+    // region Private Methods
     private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
     {
         this.startActivity(new android.content.Intent(
             android.content.Intent.ACTION_VIEW, android.net.Uri.parse(uriString)));
     }
+
+    private static void sendVerboseLogMsg(final java.lang.String msg)
+    { if (null != msg) android.util.Log.v("AndroidLibraryBuilder", msg); }
+    // endregion
 
     // region Overridden Methods
     @java.lang.Override
@@ -119,14 +125,19 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         if (null == this.deviceListTester)
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
 
-        java.lang.String text;
-        if (this.deviceListButtonClickCount++ % 2 == 0)
-            text = this.deviceListTester.size();
+        if (this.deviceListButtonClickCount == 0)
+        {
+            assert null != this.textView;
+            this.textView.setText(this.deviceListTester.size());
+        }
         else
-            text = this.deviceListTester.devices();
+            org.wheatgenetics.androidlibraryuser.MainActivity.sendVerboseLogMsg(
+                this.deviceListTester.information());
 
-        assert null != this.textView;
-        this.textView.setText(text);
+        if (this.deviceListButtonClickCount >= 1)
+            this.deviceListButtonClickCount = 0;
+        else
+            this.deviceListButtonClickCount++;
     }
     // endregion
 }
