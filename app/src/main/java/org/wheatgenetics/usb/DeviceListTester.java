@@ -31,5 +31,6 @@ public class DeviceListTester extends java.lang.Object
     public java.lang.String size()
     { return java.lang.String.format("size: %d", this.deviceList() .size()); }
 
-    public java.lang.String information() { return this.deviceList().information(); }
+    public java.lang.String information()
+    { return "information: " + this.deviceList().information(); }
 }

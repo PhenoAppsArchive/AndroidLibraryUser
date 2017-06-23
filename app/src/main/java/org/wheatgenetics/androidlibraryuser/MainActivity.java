@@ -21,6 +21,7 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
  * org.wheatgenetics.usb.DeviceListTester
  * org.wheatgenetics.usb.ScaleTester
+ * org.wheatgenetics.usb.ScaleTester.Displayer
  * org.wheatgenetics.zxing.BarcodeScanner
  */
 
@@ -39,7 +40,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         final android.widget.TextView textView = (android.widget.TextView)
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
-        assert null != text;
+        assert null != textView;
         textView.setText(text);
     }
 
@@ -124,31 +125,41 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         if (null == this.deviceListTester)
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
 
-        if (0 == this.deviceListButtonClickCount)
-            this.setTextViewText(this.deviceListTester.size());
-        else
-            this.setTextViewText(this.deviceListTester.information());
+        switch (this.deviceListButtonClickCount)
+        {
+            case 0: this.setTextViewText(this.deviceListTester.size       ()); break;
+            case 1: this.setTextViewText(this.deviceListTester.information()); break;
+        }
 
-        if (this.deviceListButtonClickCount >= 1)
-            this.deviceListButtonClickCount = 0;
-        else
-            this.deviceListButtonClickCount++;
+        switch (this.deviceListButtonClickCount)
+        {
+            case 0 : this.deviceListButtonClickCount++  ; break;
+            default: this.deviceListButtonClickCount = 0; break;
+        }
     }
 
     public void onScaleButtonClick(final android.view.View view)
     {
-        if (null == this.scaleTester)
-            this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
+        if (null == this.scaleTester) this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this,
+            new org.wheatgenetics.usb.ScaleTester.Displayer()
+            {
+                @java.lang.Override
+                public void display(final java.lang.String s)
+                { org.wheatgenetics.androidlibraryuser.MainActivity.this.setTextViewText(s); }
+            });
 
-        if (0 == this.scaleButtonClickCount)
-            this.setTextViewText(this.scaleTester.information());
-        else
-            this.setTextViewText(this.scaleTester.read());
+        switch (this.scaleButtonClickCount)
+        {
+            case 0: this.setTextViewText(this.scaleTester.information()); break;
+            case 1: this.setTextViewText(this.scaleTester.read       ()); break;
+            case 2: this.scaleTester.readContinuously()                 ; break;
+        }
 
-        if (this.scaleButtonClickCount >= 1)
-            this.scaleButtonClickCount = 0;
-        else
-            this.scaleButtonClickCount++;
+        switch (this.scaleButtonClickCount)
+        {
+            case 0: case 1: this.scaleButtonClickCount++  ; break;
+            default       : this.scaleButtonClickCount = 0; break;
+        }
     }
     // endregion
 }
