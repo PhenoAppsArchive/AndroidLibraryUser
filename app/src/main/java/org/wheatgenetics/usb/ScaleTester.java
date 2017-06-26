@@ -14,11 +14,14 @@ public class ScaleTester extends java.lang.Object
 {
     public interface Displayer { public abstract void display(java.lang.String s); }
 
+    // region Fields
     private final android.app.Activity                        activity ;
     private final org.wheatgenetics.usb.ScaleTester.Displayer displayer;
 
     private org.wheatgenetics.usb.ExtraDevice extraDeviceInstance = null;
+    // endregion
 
+    // region Private Methods
     private void display(final java.lang.String s)
     {
         assert null != this.displayer;
@@ -41,7 +44,9 @@ public class ScaleTester extends java.lang.Object
                 });
         return this.extraDeviceInstance;
     }
+    // endregion
 
+    // region Public Methods
     public ScaleTester(@android.support.annotation.NonNull final android.app.Activity activity,
     @android.support.annotation.NonNull final org.wheatgenetics.usb.ScaleTester.Displayer displayer)
     {
@@ -67,4 +72,5 @@ public class ScaleTester extends java.lang.Object
     }
 
     public void readContinuously() { this.extraDevice().readContinuously(); }
+    // endregion
 }
