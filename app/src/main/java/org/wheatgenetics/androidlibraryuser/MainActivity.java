@@ -150,15 +150,14 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
         switch (this.scaleButtonClickCount)
         {
-            case 0: this.setTextViewText(this.scaleTester.information()); break;
-            case 1: this.setTextViewText(this.scaleTester.read       ()); break;
-            case 2: this.scaleTester.readContinuously()                 ; break;
+            case 0: this.setTextViewText(this.scaleTester.information  ()); break;
+            case 1: this.setTextViewText(this.scaleTester.formattedRead()); break;
         }
 
         switch (this.scaleButtonClickCount)
         {
-            case 0: case 1: this.scaleButtonClickCount++  ; break;
-            default       : this.scaleButtonClickCount = 0; break;
+            case 0 : this.scaleButtonClickCount++  ; break;
+            default: this.scaleButtonClickCount = 0; break;
         }
     }
     // endregion
