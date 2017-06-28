@@ -8,7 +8,7 @@ package org.wheatgenetics.usb;
  * org.wheatgenetics.usb.Device.Exception
  * org.wheatgenetics.usb.DeviceReader
  * org.wheatgenetics.usb.DeviceReader.Handler
- * org.wheatgenetics.usb.ExtraDevice
+ * org.wheatgenetics.usb.Scale
  */
 
 public class ScaleTester extends java.lang.Object
@@ -19,20 +19,20 @@ public class ScaleTester extends java.lang.Object
     private final android.app.Activity                        activity ;
     private final org.wheatgenetics.usb.ScaleTester.Displayer displayer;
 
-    private org.wheatgenetics.usb.ExtraDevice  extraDeviceInstance  = null;
+    private org.wheatgenetics.usb.Scale        scaleInstance        = null;
     private org.wheatgenetics.usb.DeviceReader deviceReaderInstance = null;
     // endregion
 
     // region Private Methods
-    private org.wheatgenetics.usb.ExtraDevice extraDevice()
+    private org.wheatgenetics.usb.Scale scale()
     {
-        if (null == this.extraDeviceInstance)
-            this.extraDeviceInstance = new org.wheatgenetics.usb.ExtraDevice(this.activity, 513);
-        return this.extraDeviceInstance;
+        if (null == this.scaleInstance)
+            this.scaleInstance = new org.wheatgenetics.usb.Scale(this.activity);
+        return this.scaleInstance;
     }
 
     private java.lang.String formattedRead() throws org.wheatgenetics.usb.Device.Exception
-    { return this.extraDevice().formattedRead(); }
+    { return this.scale().formattedRead(); }
 
     private void display(final java.lang.String s)
     {
@@ -76,8 +76,7 @@ public class ScaleTester extends java.lang.Object
         this.displayer = displayer;
     }
 
-    public java.lang.String information()
-    { return "information: " + this.extraDevice().information(); }
+    public java.lang.String information() { return "information: " + this.scale().information(); }
 
     public java.lang.String handlingFormattedRead()
     {

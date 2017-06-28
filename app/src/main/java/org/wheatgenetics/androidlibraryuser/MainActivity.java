@@ -27,6 +27,9 @@ package org.wheatgenetics.androidlibraryuser;
 
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
+    // region Fields
+    private android.widget.TextView textView = null;
+
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
@@ -34,15 +37,21 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private org.wheatgenetics.usb.ScaleTester                scaleTester          = null;
 
     private int deviceListButtonClickCount = 0, scaleButtonClickCount = 0;
+    // endregion
 
     // region Private Methods
     private void setTextViewText(final java.lang.String text)
     {
-        final android.widget.TextView textView = (android.widget.TextView)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
-        assert null != textView;
-        textView.setText(text);
-        textView.invalidate() ;
+        assert null != this.textView;
+        this.textView.setText(text);
+    }
+
+    private void setAndInvalidateTextViewText(final java.lang.String text)
+    {
+        this.setTextViewText(text);
+
+        assert null != this.textView;
+        this.textView.invalidate() ;
     }
 
     private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
@@ -58,6 +67,9 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
+
+        this.textView = (android.widget.TextView)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
     }
 
     @java.lang.Override
@@ -146,7 +158,10 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
             {
                 @java.lang.Override
                 public void display(final java.lang.String s)
-                { org.wheatgenetics.androidlibraryuser.MainActivity.this.setTextViewText(s); }
+                {
+                    org.wheatgenetics.androidlibraryuser.
+                        MainActivity.this.setAndInvalidateTextViewText(s);
+                }
             });
 
         switch (this.scaleButtonClickCount)
