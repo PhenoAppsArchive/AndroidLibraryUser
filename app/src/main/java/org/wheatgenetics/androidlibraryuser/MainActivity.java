@@ -42,6 +42,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
         assert null != textView;
         textView.setText(text);
+        textView.invalidate() ;
     }
 
     private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
@@ -150,14 +151,16 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
         switch (this.scaleButtonClickCount)
         {
-            case 0: this.setTextViewText(this.scaleTester.information  ()); break;
-            case 1: this.setTextViewText(this.scaleTester.formattedRead()); break;
+            case 0: this.setTextViewText(this.scaleTester.information          ()); break;
+            case 1: this.setTextViewText(this.scaleTester.handlingFormattedRead()); break;
+            case 2: this.scaleTester.executeReader()                              ; break;
+            case 3: this.scaleTester.cancelReader ()                              ; break;
         }
 
         switch (this.scaleButtonClickCount)
         {
-            case 0 : this.scaleButtonClickCount++  ; break;
-            default: this.scaleButtonClickCount = 0; break;
+            case 0: case 1: case 2: this.scaleButtonClickCount++  ; break;
+            default               : this.scaleButtonClickCount = 0; break;
         }
     }
     // endregion
