@@ -6,9 +6,9 @@ package org.wheatgenetics.usb;
  * android.support.annotation.NonNull
  *
  * org.wheatgenetics.usb.Device.Exception
- * org.wheatgenetics.usb.DeviceReader
- * org.wheatgenetics.usb.DeviceReader.Handler
  * org.wheatgenetics.usb.Scale
+ * org.wheatgenetics.usb.ScaleReader
+ * org.wheatgenetics.usb.ScaleReader.Handler
  */
 
 public class ScaleTester extends java.lang.Object
@@ -19,8 +19,8 @@ public class ScaleTester extends java.lang.Object
     private final android.app.Activity                        activity ;
     private final org.wheatgenetics.usb.ScaleTester.Displayer displayer;
 
-    private org.wheatgenetics.usb.Scale        scaleInstance        = null;
-    private org.wheatgenetics.usb.DeviceReader deviceReaderInstance = null;
+    private org.wheatgenetics.usb.Scale       scaleInstance       = null;
+    private org.wheatgenetics.usb.ScaleReader scaleReaderInstance = null;
     // endregion
 
     // region Private Methods
@@ -40,17 +40,12 @@ public class ScaleTester extends java.lang.Object
         this.displayer.display(s);
     }
 
-    private org.wheatgenetics.usb.DeviceReader deviceReader()
+    private org.wheatgenetics.usb.ScaleReader scaleReader()
     {
-        if (null == this.deviceReaderInstance)
-            this.deviceReaderInstance = new org.wheatgenetics.usb.DeviceReader(
-                new org.wheatgenetics.usb.DeviceReader.Handler()
+        if (null == this.scaleReaderInstance)
+            this.scaleReaderInstance = new org.wheatgenetics.usb.ScaleReader(this.activity,
+                new org.wheatgenetics.usb.ScaleReader.Handler()
                 {
-                    @java.lang.Override
-                    public java.lang.String formattedRead()
-                    throws org.wheatgenetics.usb.Device.Exception
-                    { return org.wheatgenetics.usb.ScaleTester.this.formattedRead(); }
-
                     @java.lang.Override
                     public void publish(final java.lang.String data)
                     { org.wheatgenetics.usb.ScaleTester.this.display(data); }
@@ -59,7 +54,7 @@ public class ScaleTester extends java.lang.Object
                     public void reportException(final java.lang.String message)
                     { org.wheatgenetics.usb.ScaleTester.this.display(message); }
                 });
-        return this.deviceReaderInstance;
+        return this.scaleReaderInstance;
     }
     // endregion
 
@@ -84,7 +79,7 @@ public class ScaleTester extends java.lang.Object
         catch (final org.wheatgenetics.usb.Device.Exception e) { return e.getMessage()      ; }
     }
 
-    public void    executeReader() {        this.deviceReader().execute(); }
-    public boolean cancelReader () { return this.deviceReader().cancel (); }
+    public void    executeReader() {        this.scaleReader().execute(); }
+    public boolean cancelReader () { return this.scaleReader().cancel (); }
     // endregion
 }
