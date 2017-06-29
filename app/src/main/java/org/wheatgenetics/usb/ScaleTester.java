@@ -56,7 +56,7 @@ public class ScaleTester extends java.lang.Object
                     { org.wheatgenetics.usb.ScaleTester.this.display(data); }
 
                     @java.lang.Override
-                    public void reportError(final java.lang.String message)
+                    public void reportException(final java.lang.String message)
                     { org.wheatgenetics.usb.ScaleTester.this.display(message); }
                 });
         return this.deviceReaderInstance;
@@ -84,7 +84,7 @@ public class ScaleTester extends java.lang.Object
         catch (final org.wheatgenetics.usb.Device.Exception e) { return e.getMessage()      ; }
     }
 
-    public void    executeReader() { this.deviceReader().execute()      ; }
-    public boolean cancelReader () { return this.deviceReader().cancel(); }
+    public void    executeReader() {        this.deviceReader().execute(); }
+    public boolean cancelReader () { return this.deviceReader().cancel (); }
     // endregion
 }
