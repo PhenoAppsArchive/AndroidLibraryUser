@@ -3,7 +3,6 @@ package org.wheatgenetics.androidlibraryuser;
 /**
  * Uses:
  * android.content.Intent
- * android.net.Uri
  * android.os.Bundle
  * android.support.v7.app.AppCompatActivity
  * android.view.Menu
@@ -15,7 +14,6 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.about.OtherApps
  * org.wheatgenetics.about.OtherApps.Index
  * org.wheatgenetics.about.OtherAppsAlertDialog
- * org.wheatgenetics.about.OtherAppsAlertDialog.Handler
  * org.wheatgenetics.androidlibrary.R
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
@@ -55,12 +53,6 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
         assert null != this.textView;
         this.textView.invalidate() ;
-    }
-
-    private void handleOtherAppsAlertDialogItemClick(final java.lang.String uriString)
-    {
-        this.startActivity(new android.content.Intent(
-            android.content.Intent.ACTION_VIEW, android.net.Uri.parse(uriString)));
     }
     // endregion
 
@@ -121,18 +113,9 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     public void onOtherAppsButtonClick(final android.view.View view)
     {
         if (null == this.otherAppsAlertDialog)
-            this.otherAppsAlertDialog = new org.wheatgenetics.about.OtherAppsAlertDialog(this,
-                new org.wheatgenetics.about.OtherApps(
-                    org.wheatgenetics.about.OtherApps.Index.INVENTORY),
-                new org.wheatgenetics.about.OtherAppsAlertDialog.Handler()
-                {
-                    @java.lang.Override
-                    public void handleItemClick(final java.lang.String uriString)
-                    {
-                        org.wheatgenetics.androidlibraryuser.MainActivity.
-                            this.handleOtherAppsAlertDialogItemClick(uriString);
-                    }
-                });
+            this.otherAppsAlertDialog = new org.wheatgenetics.about.OtherAppsAlertDialog(
+                this, new org.wheatgenetics.about.OtherApps(
+                    org.wheatgenetics.about.OtherApps.Index.INVENTORY));
         this.otherAppsAlertDialog.show();
     }
 
