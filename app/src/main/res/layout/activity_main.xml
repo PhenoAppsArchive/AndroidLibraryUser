@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="375dp"
         android:inputType="textMultiLine"/>
 
     <Button
@@ -26,7 +26,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="225dp"
         android:text="ChangeLog"
         android:onClick="onChangeLogButtonClick"/>
 
@@ -37,6 +37,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="75dp"
         android:text="Other Apps"
         android:onClick="onOtherAppsButtonClick"/>
 
@@ -47,7 +48,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="75dp"
         android:text="DeviceList"
         android:onClick="onDeviceListButtonClick"/>
 
@@ -58,8 +59,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="225dp"
         android:text="Scale"
         android:onClick="onScaleButtonClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="375dp"
+        android:text="ScaleReader"
+        android:onClick="onScaleReaderButtonClick"/>
 
 </android.support.constraint.ConstraintLayout>

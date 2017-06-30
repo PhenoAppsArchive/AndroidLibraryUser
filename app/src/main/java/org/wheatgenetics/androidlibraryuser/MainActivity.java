@@ -21,7 +21,8 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
  * org.wheatgenetics.usb.DeviceListTester
  * org.wheatgenetics.usb.ScaleTester
- * org.wheatgenetics.usb.ScaleTester.Displayer
+ * org.wheatgenetics.usb.ScaleReaderTester
+ * org.wheatgenetics.usb.ScaleReaderTester.Displayer
  * org.wheatgenetics.zxing.BarcodeScanner
  */
 
@@ -35,8 +36,10 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
     private org.wheatgenetics.usb.DeviceListTester           deviceListTester     = null;
     private org.wheatgenetics.usb.ScaleTester                scaleTester          = null;
+    private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
-    private int deviceListButtonClickCount = 0, scaleButtonClickCount = 0;
+    private int deviceListButtonClickCount = 0,
+        scaleButtonClickCount = 0, scaleReaderButtonClickCount = 0;
     // endregion
 
     // region Private Methods
@@ -153,29 +156,46 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
     public void onScaleButtonClick(final android.view.View view)
     {
-        if (null == this.scaleTester) this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this,
-            new org.wheatgenetics.usb.ScaleTester.Displayer()
-            {
-                @java.lang.Override
-                public void display(final java.lang.String s)
-                {
-                    org.wheatgenetics.androidlibraryuser.
-                        MainActivity.this.setAndInvalidateTextViewText(s);
-                }
-            });
+        if (null == this.scaleTester)
+            this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
 
         switch (this.scaleButtonClickCount)
         {
             case 0: this.setTextViewText(this.scaleTester.information          ()); break;
             case 1: this.setTextViewText(this.scaleTester.handlingFormattedRead()); break;
-            case 2: this.scaleTester.executeReader()                              ; break;
-            case 3: this.scaleTester.cancelReader ()                              ; break;
         }
 
         switch (this.scaleButtonClickCount)
         {
-            case 0: case 1: case 2: this.scaleButtonClickCount++  ; break;
-            default               : this.scaleButtonClickCount = 0; break;
+            case 0 : this.scaleButtonClickCount++  ; break;
+            default: this.scaleButtonClickCount = 0; break;
+        }
+    }
+
+    public void onScaleReaderButtonClick(final android.view.View view)
+    {
+        if (null == this.scaleReaderTester)
+            this.scaleReaderTester = new org.wheatgenetics.usb.ScaleReaderTester(this,
+                new org.wheatgenetics.usb.ScaleReaderTester.Displayer()
+                {
+                    @java.lang.Override
+                    public void display(final java.lang.String s)
+                    {
+                        org.wheatgenetics.androidlibraryuser.
+                            MainActivity.this.setAndInvalidateTextViewText(s);
+                    }
+                });
+
+        switch (this.scaleReaderButtonClickCount)
+        {
+            case 0: this.scaleReaderTester.executeReader(); break;
+            case 1: this.scaleReaderTester.cancelReader (); break;
+        }
+
+        switch (this.scaleReaderButtonClickCount)
+        {
+            case 0 : this.scaleReaderButtonClickCount++  ; break;
+            default: this.scaleReaderButtonClickCount = 0; break;
         }
     }
     // endregion
