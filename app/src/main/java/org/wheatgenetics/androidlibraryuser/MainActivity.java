@@ -20,7 +20,7 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.usb.DeviceListTester
  * org.wheatgenetics.usb.ScaleTester
  * org.wheatgenetics.usb.ScaleReaderTester
- * org.wheatgenetics.usb.ScaleReaderTester.Displayer
+ * org.wheatgenetics.usb.ScaleReaderTester.Publisher
  * org.wheatgenetics.zxing.BarcodeScanner
  */
 
@@ -159,13 +159,13 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         if (null == this.scaleReaderTester)
             this.scaleReaderTester = new org.wheatgenetics.usb.ScaleReaderTester(this,
-                new org.wheatgenetics.usb.ScaleReaderTester.Displayer()
+                new org.wheatgenetics.usb.ScaleReaderTester.Publisher()
                 {
                     @java.lang.Override
-                    public void display(final java.lang.String s)
+                    public void publish(final java.lang.String data)
                     {
                         org.wheatgenetics.androidlibraryuser.
-                            MainActivity.this.setAndInvalidateTextViewText(s);
+                            MainActivity.this.setAndInvalidateTextViewText(data);
                     }
                 });
 
