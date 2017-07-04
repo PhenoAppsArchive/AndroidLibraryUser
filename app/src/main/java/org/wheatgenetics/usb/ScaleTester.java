@@ -5,39 +5,21 @@ package org.wheatgenetics.usb;
  * android.app.Activity
  * android.support.annotation.NonNull
  *
- * org.wheatgenetics.usb.Device.Exception
+ * org.wheatgenetics.usb.ExtraDevice
+ * org.wheatgenetics.usb.ExtraDeviceTester
  * org.wheatgenetics.usb.Scale
  */
 
-public class ScaleTester extends java.lang.Object
+public class ScaleTester extends org.wheatgenetics.usb.ExtraDeviceTester
 {
-    // region Fields
-    private final android.app.Activity        activity            ;
-    private       org.wheatgenetics.usb.Scale scaleInstance = null;
-    // endregion
-
-    private org.wheatgenetics.usb.Scale scale()
+    @java.lang.Override
+    org.wheatgenetics.usb.ExtraDevice extraDevice()
     {
-        if (null == this.scaleInstance)
-            this.scaleInstance = new org.wheatgenetics.usb.Scale(this.activity);
-        return this.scaleInstance;
+        if (null == this.extraDeviceInstance)
+            this.extraDeviceInstance = new org.wheatgenetics.usb.Scale(this.getActivity());
+        return this.extraDeviceInstance;
     }
 
-    // region Public Methods
     public ScaleTester(@android.support.annotation.NonNull final android.app.Activity activity)
-    {
-        super();
-
-        assert null != activity;
-        this.activity = activity;
-    }
-
-    public java.lang.String information() { return "information: " + this.scale().information(); }
-
-    public java.lang.String handlingFormattedRead()
-    {
-        try { return this.scale().formattedRead(); }
-        catch (final org.wheatgenetics.usb.Device.Exception e) { return e.getMessage(); }
-    }
-    // endregion
+    { super(activity); }
 }

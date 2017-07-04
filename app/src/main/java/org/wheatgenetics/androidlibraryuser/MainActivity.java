@@ -18,6 +18,7 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
  * org.wheatgenetics.usb.DeviceListTester
+ * org.wheatgenetics.usb.ExtraDeviceTester
  * org.wheatgenetics.usb.ScaleTester
  * org.wheatgenetics.usb.ScaleReaderTester
  * org.wheatgenetics.usb.ScaleReaderTester.Publisher
@@ -33,6 +34,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
     private org.wheatgenetics.usb.DeviceListTester           deviceListTester     = null;
+    private org.wheatgenetics.usb.ExtraDeviceTester          extraDeviceTester    = null;
     private org.wheatgenetics.usb.ScaleTester                scaleTester          = null;
     private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
@@ -139,19 +141,31 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
     public void onScaleButtonClick(final android.view.View view)
     {
-        if (null == this.scaleTester)
-            this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
-
         switch (this.scaleButtonClickCount)
         {
-            case 0: this.setTextViewText(this.scaleTester.information          ()); break;
-            case 1: this.setTextViewText(this.scaleTester.handlingFormattedRead()); break;
+            case 0: case 1:
+            if (null == this.extraDeviceTester)
+                this.extraDeviceTester = new org.wheatgenetics.usb.ExtraDeviceTester(this);
+            break;
+
+            case 2: case 3:
+            if (null == this.scaleTester)
+                this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
+            break;
         }
 
         switch (this.scaleButtonClickCount)
         {
-            case 0 : this.scaleButtonClickCount++  ; break;
-            default: this.scaleButtonClickCount = 0; break;
+            case 0: this.setTextViewText(this.extraDeviceTester.information          ()); break;
+            case 1: this.setTextViewText(this.extraDeviceTester.handlingFormattedRead()); break;
+            case 2: this.setTextViewText(this.scaleTester.information                ()); break;
+            case 3: this.setTextViewText(this.scaleTester.handlingFormattedRead      ()); break;
+        }
+
+        switch (this.scaleButtonClickCount)
+        {
+            case 0: case 1: case 2: this.scaleButtonClickCount++  ; break;
+            default               : this.scaleButtonClickCount = 0; break;
         }
     }
 
