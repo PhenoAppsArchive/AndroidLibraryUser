@@ -6,36 +6,23 @@ package org.wheatgenetics.usb;
  * android.support.annotation.NonNull
  *
  * org.wheatgenetics.usb.Device.Exception
+ * org.wheatgenetics.usb.DeviceReader
+ * org.wheatgenetics.usb.DeviceReaderTester
  * org.wheatgenetics.usb.ScaleReader
  * org.wheatgenetics.usb.ScaleReader.Handler
  * org.wheatgenetics.usb.ScaleExceptionAlertDialog
  * org.wheatgenetics.usb.ScaleExceptionAlertDialog.Handler
  */
 
-public class ScaleReaderTester extends java.lang.Object
+public class ScaleReaderTester extends org.wheatgenetics.usb.DeviceReaderTester
 {
-    public interface Publisher { public abstract void publish(java.lang.String data); }
-
-    // region Fields
-    private final android.app.Activity                              activity ;
-    private final org.wheatgenetics.usb.ScaleReaderTester.Publisher publisher;
-
-    private org.wheatgenetics.usb.ScaleReader               scaleReaderInstance       = null;
     private org.wheatgenetics.usb.ScaleExceptionAlertDialog scaleExceptionAlertDialog = null;
-    // endregion
-
-    // region Private Methods
-    private void publish(final java.lang.String data)
-    {
-        assert null != this.publisher;
-        this.publisher.publish(data);
-    }
 
     private void reportException(final org.wheatgenetics.usb.Device.Exception e)
     {
         this.cancelReader();
         if (null == this.scaleExceptionAlertDialog) this.scaleExceptionAlertDialog =
-            new org.wheatgenetics.usb.ScaleExceptionAlertDialog(this.activity,
+            new org.wheatgenetics.usb.ScaleExceptionAlertDialog(this.getActivity(),
                 new org.wheatgenetics.usb.ScaleExceptionAlertDialog.Handler()
                 {
                     @java.lang.Override
@@ -48,10 +35,11 @@ public class ScaleReaderTester extends java.lang.Object
         this.scaleExceptionAlertDialog.show(e);
     }
 
-    private org.wheatgenetics.usb.ScaleReader scaleReader()
+    @java.lang.Override
+    org.wheatgenetics.usb.DeviceReader deviceReader()
     {
-        if (null == this.scaleReaderInstance)
-            this.scaleReaderInstance = new org.wheatgenetics.usb.ScaleReader(this.activity,
+        if (null == this.deviceReaderInstance)
+            this.deviceReaderInstance = new org.wheatgenetics.usb.ScaleReader(this.getActivity(),
                 new org.wheatgenetics.usb.ScaleReader.Handler()
                 {
                     @java.lang.Override
@@ -62,26 +50,12 @@ public class ScaleReaderTester extends java.lang.Object
                     public void reportException(final org.wheatgenetics.usb.Device.Exception e)
                     { org.wheatgenetics.usb.ScaleReaderTester.this.reportException(e); }
                 });
-        return this.scaleReaderInstance;
+        return this.deviceReaderInstance;
     }
-    // endregion
 
-    // region Public Methods
     public ScaleReaderTester(
     @android.support.annotation.NonNull final android.app.Activity activity,
     @android.support.annotation.NonNull
         final org.wheatgenetics.usb.ScaleReaderTester.Publisher publisher)
-    {
-        super();
-
-        assert null != activity;
-        this.activity = activity;
-
-        assert null != publisher;
-        this.publisher = publisher;
-    }
-
-    public void    executeReader() {        this.scaleReader().execute(); }
-    public boolean cancelReader () { return this.scaleReader().cancel (); }
-    // endregion
+    { super(activity, publisher); }
 }

@@ -16,6 +16,7 @@ public class ExtraDeviceTester extends java.lang.Object
                   org.wheatgenetics.usb.ExtraDevice extraDeviceInstance = null;
     // endregion
 
+    // region Package Methods
     android.app.Activity getActivity() { return this.activity; }
 
     org.wheatgenetics.usb.ExtraDevice extraDevice()
@@ -24,6 +25,7 @@ public class ExtraDeviceTester extends java.lang.Object
             new org.wheatgenetics.usb.ExtraDevice(this.getActivity(), /* productId => */ 513);
         return this.extraDeviceInstance;
     }
+    // endregion
 
     // region Public Methods
     public ExtraDeviceTester(

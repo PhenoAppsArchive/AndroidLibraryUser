@@ -18,6 +18,8 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
  * org.wheatgenetics.usb.DeviceListTester
+ * org.wheatgenetics.usb.DeviceReaderTester
+ * org.wheatgenetics.usb.DeviceReaderTester.Publisher
  * org.wheatgenetics.usb.ExtraDeviceTester
  * org.wheatgenetics.usb.ScaleTester
  * org.wheatgenetics.usb.ScaleReaderTester
@@ -36,6 +38,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     private org.wheatgenetics.usb.DeviceListTester           deviceListTester     = null;
     private org.wheatgenetics.usb.ExtraDeviceTester          extraDeviceTester    = null;
     private org.wheatgenetics.usb.ScaleTester                scaleTester          = null;
+    private org.wheatgenetics.usb.DeviceReaderTester         deviceReaderTester   = null;
     private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
     private int deviceListButtonClickCount = 0,
@@ -144,14 +147,14 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         switch (this.scaleButtonClickCount)
         {
             case 0: case 1:
-            if (null == this.extraDeviceTester)
-                this.extraDeviceTester = new org.wheatgenetics.usb.ExtraDeviceTester(this);
-            break;
+                if (null == this.extraDeviceTester)
+                    this.extraDeviceTester = new org.wheatgenetics.usb.ExtraDeviceTester(this);
+                break;
 
             case 2: case 3:
-            if (null == this.scaleTester)
-                this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
-            break;
+                if (null == this.scaleTester)
+                    this.scaleTester = new org.wheatgenetics.usb.ScaleTester(this);
+                break;
         }
 
         switch (this.scaleButtonClickCount)
@@ -171,28 +174,49 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
     public void onScaleReaderButtonClick(final android.view.View view)
     {
-        if (null == this.scaleReaderTester)
-            this.scaleReaderTester = new org.wheatgenetics.usb.ScaleReaderTester(this,
-                new org.wheatgenetics.usb.ScaleReaderTester.Publisher()
-                {
-                    @java.lang.Override
-                    public void publish(final java.lang.String data)
-                    {
-                        org.wheatgenetics.androidlibraryuser.
-                            MainActivity.this.setAndInvalidateTextViewText(data);
-                    }
-                });
-
         switch (this.scaleReaderButtonClickCount)
         {
-            case 0: this.scaleReaderTester.executeReader(); break;
-            case 1: this.scaleReaderTester.cancelReader (); break;
+            case 0: case 1:
+            if (null == this.deviceReaderTester)
+                this.deviceReaderTester = new org.wheatgenetics.usb.DeviceReaderTester(this,
+                    new org.wheatgenetics.usb.DeviceReaderTester.Publisher()
+                    {
+                        @java.lang.Override
+                        public void publish(String data)
+                        {
+                            org.wheatgenetics.androidlibraryuser.
+                                MainActivity.this.setAndInvalidateTextViewText(data);
+                        }
+                    });
+            break;
+
+            case 2: case 3:
+            if (null == this.scaleReaderTester)
+                this.scaleReaderTester = new org.wheatgenetics.usb.ScaleReaderTester(this,
+                    new org.wheatgenetics.usb.ScaleReaderTester.Publisher()
+                    {
+                        @java.lang.Override
+                        public void publish(final java.lang.String data)
+                        {
+                            org.wheatgenetics.androidlibraryuser.
+                                MainActivity.this.setAndInvalidateTextViewText(data);
+                        }
+                    });
+            break;
         }
 
         switch (this.scaleReaderButtonClickCount)
         {
-            case 0 : this.scaleReaderButtonClickCount++  ; break;
-            default: this.scaleReaderButtonClickCount = 0; break;
+            case 0: this.deviceReaderTester.executeReader(); break;
+            case 1: this.deviceReaderTester.cancelReader (); break;
+            case 2: this.scaleReaderTester.executeReader (); break;
+            case 3: this.scaleReaderTester.cancelReader  (); break;
+        }
+
+        switch (this.scaleReaderButtonClickCount)
+        {
+            case 0: case 1: case 2: this.scaleReaderButtonClickCount++  ; break;
+            default               : this.scaleReaderButtonClickCount = 0; break;
         }
     }
     // endregion
