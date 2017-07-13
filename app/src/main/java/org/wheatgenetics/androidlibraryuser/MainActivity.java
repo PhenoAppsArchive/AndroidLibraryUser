@@ -17,6 +17,7 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.androidlibrary.R
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
+ * org.wheatgenetics.javalib.Utils
  * org.wheatgenetics.usb.DeviceListTester
  * org.wheatgenetics.usb.DeviceReaderTester
  * org.wheatgenetics.usb.DeviceReaderTester.Publisher
@@ -99,10 +100,10 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     protected void onActivityResult(final int requestCode,
     final int resultCode, final android.content.Intent data)
     {
-        java.lang.String barcode = org.wheatgenetics.zxing.BarcodeScanner.parseActivityResult(
-            requestCode, resultCode, data);
-        if (null == barcode) barcode = "null";
-        this.setTextViewText(barcode);
+        this.setTextViewText(org.wheatgenetics.javalib.Utils.replaceIfNull(
+            org.wheatgenetics.zxing.BarcodeScanner.parseActivityResult(
+                requestCode, resultCode, data),
+            "null"));
     }
     // endregion
 
@@ -177,32 +178,32 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         switch (this.scaleReaderButtonClickCount)
         {
             case 0: case 1:
-            if (null == this.deviceReaderTester)
-                this.deviceReaderTester = new org.wheatgenetics.usb.DeviceReaderTester(this,
-                    new org.wheatgenetics.usb.DeviceReaderTester.Publisher()
-                    {
-                        @java.lang.Override
-                        public void publish(String data)
+                if (null == this.deviceReaderTester)
+                    this.deviceReaderTester = new org.wheatgenetics.usb.DeviceReaderTester(this,
+                        new org.wheatgenetics.usb.DeviceReaderTester.Publisher()
                         {
-                            org.wheatgenetics.androidlibraryuser.
-                                MainActivity.this.setAndInvalidateTextViewText(data);
-                        }
-                    });
-            break;
+                            @java.lang.Override
+                            public void publish(String data)
+                            {
+                                org.wheatgenetics.androidlibraryuser.
+                                    MainActivity.this.setAndInvalidateTextViewText(data);
+                            }
+                        });
+                break;
 
             case 2: case 3:
-            if (null == this.scaleReaderTester)
-                this.scaleReaderTester = new org.wheatgenetics.usb.ScaleReaderTester(this,
-                    new org.wheatgenetics.usb.ScaleReaderTester.Publisher()
-                    {
-                        @java.lang.Override
-                        public void publish(final java.lang.String data)
+                if (null == this.scaleReaderTester)
+                    this.scaleReaderTester = new org.wheatgenetics.usb.ScaleReaderTester(this,
+                        new org.wheatgenetics.usb.ScaleReaderTester.Publisher()
                         {
-                            org.wheatgenetics.androidlibraryuser.
-                                MainActivity.this.setAndInvalidateTextViewText(data);
-                        }
-                    });
-            break;
+                            @java.lang.Override
+                            public void publish(final java.lang.String data)
+                            {
+                                org.wheatgenetics.androidlibraryuser.
+                                    MainActivity.this.setAndInvalidateTextViewText(data);
+                            }
+                        });
+                break;
         }
 
         switch (this.scaleReaderButtonClickCount)
