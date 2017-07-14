@@ -28,6 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="225dp"
         android:text="ChangeLog"
+        android:textAllCaps="false"
         android:onClick="onChangeLogButtonClick"/>
 
     <Button
@@ -39,9 +40,11 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="75dp"
         android:text="Other Apps"
+        android:textAllCaps="false"
         android:onClick="onOtherAppsButtonClick"/>
 
     <Button
+        android:id="@+id/deviceListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,9 +53,11 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="75dp"
         android:text="DeviceList"
+        android:textAllCaps="false"
         android:onClick="onDeviceListButtonClick"/>
 
     <Button
+        android:id="@+id/scaleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,9 +66,11 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="225dp"
         android:text="Scale"
+        android:textAllCaps="false"
         android:onClick="onScaleButtonClick"/>
 
     <Button
+        android:id="@+id/scaleReaderButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,6 +79,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="375dp"
         android:text="ScaleReader"
+        android:textAllCaps="false"
         android:onClick="onScaleReaderButtonClick"/>
 
 </android.support.constraint.ConstraintLayout>

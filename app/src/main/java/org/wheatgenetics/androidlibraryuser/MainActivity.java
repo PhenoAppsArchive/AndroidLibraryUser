@@ -9,6 +9,7 @@ package org.wheatgenetics.androidlibraryuser;
  * android.view.MenuInflater
  * android.view.MenuItem
  * android.view.View
+ * android.widget.Button
  * android.widget.TextView
  *
  * org.wheatgenetics.about.OtherApps
@@ -32,6 +33,8 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
     // region Fields
     private android.widget.TextView textView = null;
+    private android.widget.Button   deviceListButton = null,
+        scaleButton = null, scaleReaderButton = null;
 
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
@@ -47,6 +50,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     // endregion
 
     // region Private Methods
+    // region textView Private Methods
     private void setTextViewText(final java.lang.String text)
     {
         assert null != this.textView;
@@ -62,6 +66,41 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     }
     // endregion
 
+    // region Button Private Methods
+    private static void setButtonText(final android.widget.Button button,
+    final java.lang.String text)
+    {
+        assert null != button;
+        button.setText(text);
+    }
+
+
+    private void setDeviceListButtonText(final java.lang.String text)
+    {
+        org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(
+            this.deviceListButton, text);
+    }
+
+    private void setScaleButtonText(final java.lang.String text)
+    { org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(this.scaleButton, text); }
+
+    private void setScaleReaderButtonText(final java.lang.String text)
+    {
+        org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(
+            this.scaleReaderButton, text);
+    }
+
+
+    private void resetDeviceListButtonText() { this.setDeviceListButtonText("DeviceList.size()"); }
+
+    private void resetScaleButtonText()
+    { this.setScaleButtonText("ExtraDevice.information()"); }
+
+    private void resetScaleReaderButtonText()
+    { this.setScaleReaderButtonText("DeviceReader.execute()"); }
+    // endregion
+    // endregion
+
     // region Overridden Methods
     @java.lang.Override
     protected void onCreate(final android.os.Bundle savedInstanceState)
@@ -69,8 +108,22 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         super.onCreate(savedInstanceState);
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
 
+
         this.textView = (android.widget.TextView)
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
+
+
+        this.deviceListButton = (android.widget.Button)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.deviceListButton);
+        this.resetDeviceListButtonText();
+
+        this.scaleButton = (android.widget.Button)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleButton);
+        this.resetScaleButtonText();
+
+        this.scaleReaderButton = (android.widget.Button)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleReaderButton);
+        this.resetScaleReaderButtonText();
     }
 
     @java.lang.Override
@@ -138,8 +191,12 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
         switch (this.deviceListButtonClickCount)
         {
-            case 0 : this.deviceListButtonClickCount++  ; break;
-            default: this.deviceListButtonClickCount = 0; break;
+            case 0:
+                this.deviceListButtonClickCount++;
+                this.setDeviceListButtonText("DeviceList.information()");
+                break;
+
+            default: this.deviceListButtonClickCount = 0; this.resetDeviceListButtonText(); break;
         }
     }
 
@@ -170,6 +227,15 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         {
             case 0: case 1: case 2: this.scaleButtonClickCount++  ; break;
             default               : this.scaleButtonClickCount = 0; break;
+        }
+
+        switch (this.scaleButtonClickCount)
+        {
+            case 0 : this.resetScaleButtonText()                           ; break;
+            case 1 : this.setScaleButtonText("ExtraDevice.formattedRead()"); break;
+            case 2 : this.setScaleButtonText("Scale.information()"        ); break;
+            case 3 : this.setScaleButtonText("Scale.formattedRead()"      ); break;
+            default: this.setScaleButtonText("Error!"                     ); break;
         }
     }
 
@@ -218,6 +284,15 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         {
             case 0: case 1: case 2: this.scaleReaderButtonClickCount++  ; break;
             default               : this.scaleReaderButtonClickCount = 0; break;
+        }
+
+        switch (this.scaleReaderButtonClickCount)
+        {
+            case 0 : this.resetScaleReaderButtonText(); break;
+            case 1 : this.setScaleReaderButtonText("DeviceReader.cancel()"); break;
+            case 2 : this.setScaleReaderButtonText("ScaleReader.execute()"); break;
+            case 3 : this.setScaleReaderButtonText("ScaleReader.cancel()" ); break;
+            default: this.setScaleReaderButtonText("Error!"               ); break;
         }
     }
     // endregion
