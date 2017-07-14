@@ -26,8 +26,10 @@ public class DeviceReaderTester extends java.lang.Object
 
     private java.lang.String formattedRead() throws org.wheatgenetics.usb.Device.Exception
     {
-        if (null == this.extraDevice) this.extraDevice =
-            new org.wheatgenetics.usb.ExtraDevice(this.getActivity(), /* productId => */ 513);
+        if (null == this.extraDevice)
+            this.extraDevice = new org.wheatgenetics.usb.ExtraDevice(this.getActivity(),
+                org.wheatgenetics.usb.Scale.ELANEVendorId  ,
+                org.wheatgenetics.usb.Scale.ELANEProductIds);
         return this.extraDevice.formattedRead();
     }
 

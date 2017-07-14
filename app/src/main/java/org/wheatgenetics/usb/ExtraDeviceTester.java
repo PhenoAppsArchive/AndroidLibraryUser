@@ -7,6 +7,7 @@ package org.wheatgenetics.usb;
  *
  * org.wheatgenetics.usb.Device.Exception
  * org.wheatgenetics.usb.ExtraDevice
+ * org.wheatgenetics.usb.Scale
  */
 
 public class ExtraDeviceTester extends java.lang.Object
@@ -21,8 +22,10 @@ public class ExtraDeviceTester extends java.lang.Object
 
     org.wheatgenetics.usb.ExtraDevice extraDevice()
     {
-        if (null == this.extraDeviceInstance) this.extraDeviceInstance =
-            new org.wheatgenetics.usb.ExtraDevice(this.getActivity(), /* productId => */ 513);
+        if (null == this.extraDeviceInstance)
+            this.extraDeviceInstance = new org.wheatgenetics.usb.ExtraDevice(this.getActivity(),
+                org.wheatgenetics.usb.Scale.ELANEVendorId  ,
+                org.wheatgenetics.usb.Scale.ELANEProductIds);
         return this.extraDeviceInstance;
     }
     // endregion
