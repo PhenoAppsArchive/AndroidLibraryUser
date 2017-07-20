@@ -12,7 +12,6 @@ package org.wheatgenetics.androidlibraryuser;
  * android.widget.Button
  * android.widget.TextView
  *
- * org.wheatgenetics.about.OtherApps
  * org.wheatgenetics.about.OtherApps.Index
  * org.wheatgenetics.about.OtherAppsAlertDialog
  * org.wheatgenetics.androidlibrary.R
@@ -173,8 +172,7 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     {
         if (null == this.otherAppsAlertDialog)
             this.otherAppsAlertDialog = new org.wheatgenetics.about.OtherAppsAlertDialog(
-                this, new org.wheatgenetics.about.OtherApps(
-                    org.wheatgenetics.about.OtherApps.Index.INVENTORY));
+                this, org.wheatgenetics.about.OtherApps.Index.INVENTORY);
         this.otherAppsAlertDialog.show();
     }
 
