@@ -3,15 +3,19 @@ package org.wheatgenetics.androidlibraryuser;
 /**
  * Uses:
  * android.content.Intent
+ * android.content.pm.PackageInfo
+ * android.content.pm.PackageManager.NameNotFoundException
  * android.os.Bundle
  * android.support.v7.app.AppCompatActivity
  * android.view.Menu
  * android.view.MenuInflater
  * android.view.MenuItem
  * android.view.View
+ * android.view.View.OnClickListener
  * android.widget.Button
  * android.widget.TextView
  *
+ * org.wheatgenetics.about.AboutAlertDialog
  * org.wheatgenetics.about.OtherApps.Index
  * org.wheatgenetics.about.OtherAppsAlertDialog
  * org.wheatgenetics.androidlibrary.R
@@ -32,19 +36,21 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 {
     // region Fields
     private android.widget.TextView textView = null;
-    private android.widget.Button   deviceListButton = null,
-        scaleButton = null, scaleReaderButton = null;
+    private android.widget.Button
+        otherAppsButton = null, deviceListButton  = null,
+        scaleButton     = null, scaleReaderButton = null;
 
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
+    private org.wheatgenetics.about.AboutAlertDialog         aboutAlertDialog     = null;
     private org.wheatgenetics.usb.DeviceListTester           deviceListTester     = null;
     private org.wheatgenetics.usb.ExtraDeviceTester          extraDeviceTester    = null;
     private org.wheatgenetics.usb.ScaleTester                scaleTester          = null;
     private org.wheatgenetics.usb.DeviceReaderTester         deviceReaderTester   = null;
     private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
-    private int deviceListButtonClickCount = 0,
+    private int otherAppsButtonClickCount = 0, deviceListButtonClickCount = 0,
         scaleButtonClickCount = 0, scaleReaderButtonClickCount = 0;
     // endregion
 
@@ -65,6 +71,17 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
     }
     // endregion
 
+    private void showChangeLog()
+    {
+        if (null == this.changeLogAlertDialog)
+            this.changeLogAlertDialog = new org.wheatgenetics.changelog.ChangeLogAlertDialog(
+                /* context                => */ this,
+                /* changeLogRawResourceId => */
+                    org.wheatgenetics.androidlibraryuser.R.raw.changelog);
+        try                                 { this.changeLogAlertDialog.show(); }
+        catch (final java.io.IOException e) { /* Don't show. */                 }
+    }
+
     // region Button Private Methods
     private static void setButtonText(final android.widget.Button button,
     final java.lang.String text)
@@ -73,6 +90,12 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         button.setText(text);
     }
 
+
+    private void setOtherAppsButtonText(final java.lang.String text)
+    {
+        org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(
+            this.otherAppsButton, text);
+    }
 
     private void setDeviceListButtonText(final java.lang.String text)
     {
@@ -89,6 +112,8 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
             this.scaleReaderButton, text);
     }
 
+
+    private void resetOtherAppsButtonText() { this.setOtherAppsButtonText("Other Apps"); }
 
     private void resetDeviceListButtonText() { this.setDeviceListButtonText("DeviceList.size()"); }
 
@@ -111,6 +136,10 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
         this.textView = (android.widget.TextView)
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
 
+
+        this.otherAppsButton = (android.widget.Button)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.otherAppsButton);
+        this.resetOtherAppsButtonText();
 
         this.deviceListButton = (android.widget.Button)
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.deviceListButton);
@@ -161,19 +190,64 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 
     // region Event Handlers
     public void onChangeLogButtonClick(final android.view.View view) throws java.io.IOException
-    {
-        if (null == this.changeLogAlertDialog) this.changeLogAlertDialog =
-            new org.wheatgenetics.changelog.ChangeLogAlertDialog(
-                this, org.wheatgenetics.androidlibraryuser.R.raw.changelog);
-        this.changeLogAlertDialog.show();
-    }
+    { this.showChangeLog(); }
 
     public void onOtherAppsButtonClick(final android.view.View view)
     {
-        if (null == this.otherAppsAlertDialog)
-            this.otherAppsAlertDialog = new org.wheatgenetics.about.OtherAppsAlertDialog(
-                this, org.wheatgenetics.about.OtherApps.Index.INVENTORY);
-        this.otherAppsAlertDialog.show();
+        switch (this.otherAppsButtonClickCount)
+        {
+            case 0:
+                if (null == this.otherAppsAlertDialog)
+                    this.otherAppsAlertDialog = new org.wheatgenetics.about.OtherAppsAlertDialog(
+                        this, org.wheatgenetics.about.OtherApps.Index.INVENTORY);
+                break;
+
+            case 1:
+                if (null == this.aboutAlertDialog)
+                {
+                    java.lang.String versionName;
+                    try
+                    {
+                        final android.content.pm.PackageInfo packageInfo =
+                            this.getPackageManager().getPackageInfo(
+                                this.getPackageName(), /* flags => */ 0);
+                        assert null != packageInfo;
+                        versionName = packageInfo.versionName;
+                    }
+                    catch (final android.content.pm.PackageManager.NameNotFoundException e)
+                    { versionName = org.wheatgenetics.javalib.Utils.adjust(null); }
+
+                    this.aboutAlertDialog = new org.wheatgenetics.about.AboutAlertDialog(
+                        (android.content.Context) this, "About Android Library User",
+                        versionName, new java.lang.String[] {
+                            "msg1: test (http://www.google.com/ )"  ,
+                            "msg2: (http://www.google.com/) test"  ,
+                            "msg3: abc http://www.google.com/ def" },
+                        org.wheatgenetics.about.OtherApps.Index.INVENTORY,
+                        new android.view.View.OnClickListener()
+                        {
+                            @java.lang.Override
+                            public void onClick(final android.view.View v)
+                            {
+                                org.wheatgenetics.androidlibraryuser.
+                                    MainActivity.this.showChangeLog();
+                            }
+                        });
+                }
+                break;
+        }
+
+        switch (this.otherAppsButtonClickCount)
+        {
+            case 0: this.otherAppsAlertDialog.show(); break;
+            case 1: this.aboutAlertDialog.show    (); break;
+        }
+
+        switch (this.otherAppsButtonClickCount)
+        {
+            case 0: this.otherAppsButtonClickCount++  ; this.setOtherAppsButtonText("About"); break;
+            case 1: this.otherAppsButtonClickCount = 0; this.resetOtherAppsButtonText()     ; break;
+        }
     }
 
     public void onDeviceListButtonClick(final android.view.View view)
