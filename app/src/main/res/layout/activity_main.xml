@@ -20,6 +20,7 @@
         android:inputType="textMultiLine"/>
 
     <Button
+        android:id="@+id/toastButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,9 +28,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="225dp"
-        android:text="ChangeLog"
+        android:text="Short Toast"
         android:textAllCaps="false"
-        android:onClick="onChangeLogButtonClick"/>
+        android:onClick="onToastButtonClick"/>
 
     <Button
         android:id="@+id/otherAppsButton"
