@@ -1,8 +1,8 @@
 # Android Library User
 
-Android Library User is a minimal Android Phone and Tablet app.  It is the scaffolding used to test an [Android Library](https://developer.android.com/studio/projects/android-library.html) called Android Library.
+Android Library User is a minimal Android Phone and Tablet app.  It is the scaffolding used to test an [Android library](https://developer.android.com/studio/projects/android-library.html) called Android Library.
 
-Android Library provides a utility class, a change log alert dialog, a `SharedPreferences` wrapper, `AboutAlertDialog`, and is a thin wrapper around the impressive [Zebra Crossing Project](https://github.com/zxing/zxing).  It also works with [ELANE USB Plus 5kg](http://www.elane.net/index.php?go=usb_plus5kg&category=usb_scales) scales.
+Android Library provides utility classes, a change log alert dialog, a `SharedPreferences` wrapper, `AboutAlertDialog`, and is a thin wrapper around the impressive [Zebra Crossing Project](https://github.com/zxing/zxing).  It also works with [ELANE USB Plus 5kg](http://www.elane.net/index.php?go=usb_plus5kg&category=usb_scales) and [ELANE USB PS2000 5kg](http://www.elane.net/index.php?go=usb_ps2000_5kg&category=usb_scales) scales.
 
 ### Developer
 Peter J. Rosario - [peterrosario@ksu.edu](mailto:peterrosario@ksu.edu)

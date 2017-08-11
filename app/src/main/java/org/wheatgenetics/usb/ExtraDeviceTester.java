@@ -9,7 +9,6 @@ package org.wheatgenetics.usb;
  * org.wheatgenetics.usb.ExtraDevice
  * org.wheatgenetics.usb.Scale
  */
-
 public class ExtraDeviceTester extends java.lang.Object
 {
     // region Fields
@@ -33,12 +32,7 @@ public class ExtraDeviceTester extends java.lang.Object
     // region Public Methods
     public ExtraDeviceTester(
     @android.support.annotation.NonNull final android.app.Activity activity)
-    {
-        super();
-
-        assert null != activity;
-        this.activity = activity;
-    }
+    { super(); this.activity = activity; }
 
     public java.lang.String information()
     { return "information: " + this.extraDevice().information(); }

@@ -13,7 +13,6 @@ package org.wheatgenetics.usb;
  * org.wheatgenetics.usb.ScaleExceptionAlertDialog
  * org.wheatgenetics.usb.ScaleExceptionAlertDialog.Handler
  */
-
 public class ScaleReaderTester extends org.wheatgenetics.usb.DeviceReaderTester
 {
     private org.wheatgenetics.usb.ScaleExceptionAlertDialog scaleExceptionAlertDialog = null;
@@ -40,7 +39,7 @@ public class ScaleReaderTester extends org.wheatgenetics.usb.DeviceReaderTester
     {
         if (null == this.deviceReaderInstance)
             this.deviceReaderInstance = new org.wheatgenetics.usb.ScaleReader(this.getActivity(),
-                new org.wheatgenetics.usb.ScaleReader.Handler()
+                /* handler => */ new org.wheatgenetics.usb.ScaleReader.Handler()
                 {
                     @java.lang.Override
                     public void publish(final java.lang.String data)

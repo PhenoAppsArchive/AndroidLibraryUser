@@ -9,7 +9,6 @@ package org.wheatgenetics.usb;
  * org.wheatgenetics.usb.ExtraDeviceTester
  * org.wheatgenetics.usb.Scale
  */
-
 public class ScaleTester extends org.wheatgenetics.usb.ExtraDeviceTester
 {
     @java.lang.Override

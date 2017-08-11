@@ -11,7 +11,6 @@ package org.wheatgenetics.usb;
  * org.wheatgenetics.usb.DeviceReader.Handler
  * org.wheatgenetics.usb.ExtraDevice
  */
-
 public class DeviceReaderTester extends java.lang.Object
 {
     public interface Publisher { public abstract void publish(java.lang.String data); }
@@ -46,20 +45,19 @@ public class DeviceReaderTester extends java.lang.Object
     {
         if (null == this.deviceReaderInstance)
             this.deviceReaderInstance = new org.wheatgenetics.usb.DeviceReader(
-                new org.wheatgenetics.usb.DeviceReader.Handler()
+                /* handler => */ new org.wheatgenetics.usb.DeviceReader.Handler()
                 {
                     @java.lang.Override
                     public void publish(final java.lang.String data)
                     { org.wheatgenetics.usb.DeviceReaderTester.this.publish(data); }
 
-                    @Override
+                    @java.lang.Override
                     public void reportException(final org.wheatgenetics.usb.Device.Exception e)
                     {
                         assert null != e;
                         org.wheatgenetics.usb.DeviceReaderTester.this.publish(e.getMessage());
                     }
-                },
-                new org.wheatgenetics.usb.DeviceReader.DataSource()
+                }, /* dataSource => */ new org.wheatgenetics.usb.DeviceReader.DataSource()
                 {
                     @java.lang.Override
                     public java.lang.String formattedRead()
@@ -78,10 +76,7 @@ public class DeviceReaderTester extends java.lang.Object
     {
         super();
 
-        assert null != activity;
-        this.activity = activity;
-
-        assert null != publisher;
+        this.activity  = activity ;
         this.publisher = publisher;
     }
 

@@ -2,12 +2,12 @@ package org.wheatgenetics.usb;
 
 /**
  * Uses:
+ * android.annotation.SuppressLint
  * android.app.Activity
  * android.support.annotation.NonNull
  *
  * org.wheatgenetics.usb.DeviceList
  */
-
 public class DeviceListTester extends java.lang.Object
 {
     private final android.app.Activity             activity                 ;
@@ -21,13 +21,9 @@ public class DeviceListTester extends java.lang.Object
     }
 
     public DeviceListTester(@android.support.annotation.NonNull final android.app.Activity activity)
-    {
-        super();
+    { super(); this.activity = activity; }
 
-        assert null != activity;
-        this.activity = activity;
-    }
-
+    @android.annotation.SuppressLint("DefaultLocale")
     public java.lang.String size()
     { return java.lang.String.format("size: %d", this.deviceList() .size()); }
 

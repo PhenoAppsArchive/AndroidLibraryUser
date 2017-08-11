@@ -54,7 +54,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="75dp"
-        android:text="DeviceList"
+        android:text="DeviceList.size()"
         android:textAllCaps="false"
         android:onClick="onDeviceListButtonClick"/>
 
@@ -67,7 +67,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="225dp"
-        android:text="Scale"
+        android:text="ExtraDevice.information()"
         android:textAllCaps="false"
         android:onClick="onScaleButtonClick"/>
 
@@ -80,7 +80,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="375dp"
-        android:text="ScaleReader"
+        android:text="DeviceReader.execute()"
         android:textAllCaps="false"
         android:onClick="onScaleReaderButtonClick"/>
 
