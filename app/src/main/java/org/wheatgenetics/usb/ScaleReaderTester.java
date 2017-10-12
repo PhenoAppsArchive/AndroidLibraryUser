@@ -31,7 +31,7 @@ public class ScaleReaderTester extends org.wheatgenetics.usb.DeviceReaderTester
                     @java.lang.Override
                     public void ignore() {}
                 });
-        this.scaleExceptionAlertDialog.show(e);
+        this.scaleExceptionAlertDialog.testingShow(e);
     }
 
     @java.lang.Override
