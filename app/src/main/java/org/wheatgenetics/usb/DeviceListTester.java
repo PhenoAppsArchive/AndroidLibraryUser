@@ -8,6 +8,7 @@ package org.wheatgenetics.usb;
  *
  * org.wheatgenetics.usb.DeviceList
  */
+@java.lang.SuppressWarnings("ClassExplicitlyExtendsObject")
 public class DeviceListTester extends java.lang.Object
 {
     private final android.app.Activity             activity                 ;

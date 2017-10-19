@@ -11,6 +11,7 @@ package org.wheatgenetics.usb;
  * org.wheatgenetics.usb.DeviceReader.Handler
  * org.wheatgenetics.usb.ExtraDevice
  */
+@java.lang.SuppressWarnings("ClassExplicitlyExtendsObject")
 public class DeviceReaderTester extends java.lang.Object
 {
     public interface Publisher { public abstract void publish(java.lang.String data); }

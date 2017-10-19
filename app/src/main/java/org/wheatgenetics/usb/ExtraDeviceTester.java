@@ -9,6 +9,7 @@ package org.wheatgenetics.usb;
  * org.wheatgenetics.usb.ExtraDevice
  * org.wheatgenetics.usb.Scale
  */
+@java.lang.SuppressWarnings("ClassExplicitlyExtendsObject")
 public class ExtraDeviceTester extends java.lang.Object
 {
     // region Fields
