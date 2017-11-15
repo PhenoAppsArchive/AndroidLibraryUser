@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="375dp"
+        android:layout_marginBottom="350dp"
         android:inputType="textMultiLine"/>
 
     <Button
@@ -27,7 +27,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="225dp"
+        android:layout_marginBottom="250dp"
         android:text="Short Toast"
         android:textAllCaps="false"
         android:onClick="onToastButtonClick"/>
@@ -40,7 +40,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="150dp"
         android:text="Other Apps"
         android:textAllCaps="false"
         android:onClick="onOtherAppsButtonClick"/>
@@ -53,7 +53,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="75dp"
+        android:layout_marginBottom="50dp"
         android:text="DeviceList.size()"
         android:textAllCaps="false"
         android:onClick="onDeviceListButtonClick"/>
@@ -66,7 +66,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="50dp"
         android:text="ExtraDevice.information()"
         android:textAllCaps="false"
         android:onClick="onScaleButtonClick"/>
@@ -79,9 +79,26 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="375dp"
+        android:layout_marginTop="150dp"
         android:text="DeviceReader.execute()"
         android:textAllCaps="false"
         android:onClick="onScaleReaderButtonClick"/>
+
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="250dp"
+        android:gravity="center_horizontal"
+        android:lines="1"
+        android:inputType="text"
+        android:focusableInTouchMode="true"
+        android:selectAllOnFocus="true"
+        android:imeOptions="actionDone"/>
 
 </android.support.constraint.ConstraintLayout>
