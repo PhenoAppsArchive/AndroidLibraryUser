@@ -62,27 +62,6 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // endregion
 
     // region Private Methods
-    // region textView Private Methods
-    private void setTextViewText(final java.lang.String text)
-    { assert null != this.textView; this.textView.setText(text); }
-
-    private void setAndInvalidateTextViewText(final java.lang.String text)
-    {
-        this.setTextViewText(text);
-        assert null != this.textView; this.textView.invalidate() ;
-    }
-    // endregion
-
-    private void showChangeLog()
-    {
-        if (null == this.changeLogAlertDialog)
-            this.changeLogAlertDialog = new org.wheatgenetics.changelog.ChangeLogAlertDialog(
-                /* context                => */ this,
-                /* changeLogRawResourceId => */
-                    org.wheatgenetics.androidlibraryuser.R.raw.changelog);
-        this.changeLogAlertDialog.show();
-    }
-
     // region Button Private Methods
     private static void setButtonText(final android.widget.Button button,
     final java.lang.String text) { assert null != button; button.setText(text); }
@@ -119,11 +98,31 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     private void resetScaleReaderButtonText()
     { this.setScaleReaderButtonText("DeviceReader.execute()"); }
     // endregion
+
+    // region textView Private Methods
+    private void setTextViewText(final java.lang.String text)
+    { assert null != this.textView; this.textView.setText(text); }
+
+    private void setAndInvalidateTextViewText(final java.lang.String text)
+    {
+        this.setTextViewText(text);
+        assert null != this.textView; this.textView.invalidate();
+    }
+    // endregion
+
+    private void showChangeLog()
+    {
+        if (null == this.changeLogAlertDialog)
+            this.changeLogAlertDialog = new org.wheatgenetics.changelog.ChangeLogAlertDialog(
+                /* activity               => */ this,
+                /* changeLogRawResourceId => */
+                    org.wheatgenetics.androidlibraryuser.R.raw.changelog);
+        this.changeLogAlertDialog.show();
+    }
     // endregion
 
     // region Overridden Methods
-    @java.lang.Override
-    protected void onCreate(final android.os.Bundle savedInstanceState)
+    @java.lang.Override protected void onCreate(final android.os.Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
@@ -160,16 +159,14 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             this, org.wheatgenetics.androidlibraryuser.BuildConfig.DEBUG, 1000);
     }
 
-    @java.lang.Override
-    public boolean onCreateOptionsMenu(final android.view.Menu menu)
+    @java.lang.Override public boolean onCreateOptionsMenu(final android.view.Menu menu)
     {
         new android.view.MenuInflater(this).inflate(
             org.wheatgenetics.androidlibrary.R.menu.camera_options_menu, menu);
         return true;
     }
 
-    @java.lang.Override
-    public boolean onOptionsItemSelected(final android.view.MenuItem item)
+    @java.lang.Override public boolean onOptionsItemSelected(final android.view.MenuItem item)
     {
         assert null != item; switch (item.getItemId())
         {
@@ -193,8 +190,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     }
 
     // region org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver Overridden Method
-    @java.lang.Override
-    public void receiveText(final java.lang.String text)
+    @java.lang.Override public void receiveText(final java.lang.String text)
     {
         assert null != this.textView; this.textView.setText(text) ;
         assert null != this.editText; this.editText.requestFocus();
@@ -203,7 +199,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // endregion
 
     // region Event Handlers
-    public void onToastButtonClick(final android.view.View view) throws java.io.IOException
+    public void onToastButtonClick(final android.view.View view)
     {
         switch (this.toastButtonClickCount)
         {
@@ -252,15 +248,13 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                         org.wheatgenetics.about.OtherApps.Index.INVENTORY,
                         new android.view.View.OnClickListener()
                         {
-                            @java.lang.Override
-                            public void onClick(final android.view.View v)
+                            @java.lang.Override public void onClick(final android.view.View v)
                             {
-                                org.wheatgenetics.androidlibraryuser.
-                                    MainActivity.this.showChangeLog();
+                                org.wheatgenetics.androidlibraryuser.MainActivity
+                                    .this.showChangeLog();
                             }
                         });
-                }
-                break;
+                } break;
         }
 
         switch (this.otherAppsButtonClickCount)
@@ -291,8 +285,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         {
             case 0:
                 this.deviceListButtonClickCount++;
-                this.setDeviceListButtonText("DeviceList.information()");
-                break;
+                this.setDeviceListButtonText("DeviceList.information()"); break;
 
             default: this.deviceListButtonClickCount = 0; this.resetDeviceListButtonText(); break;
         }
@@ -346,11 +339,10 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                     this.deviceReaderTester = new org.wheatgenetics.usb.DeviceReaderTester(this,
                         new org.wheatgenetics.usb.DeviceReaderTester.Publisher()
                         {
-                            @java.lang.Override
-                            public void publish(final java.lang.String data)
+                            @java.lang.Override public void publish(final java.lang.String data)
                             {
-                                org.wheatgenetics.androidlibraryuser.
-                                    MainActivity.this.setAndInvalidateTextViewText(data);
+                                org.wheatgenetics.androidlibraryuser.MainActivity
+                                    .this.setAndInvalidateTextViewText(data);
                             }
                         });
                 break;
@@ -360,11 +352,10 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                     this.scaleReaderTester = new org.wheatgenetics.usb.ScaleReaderTester(this,
                         new org.wheatgenetics.usb.ScaleReaderTester.Publisher()
                         {
-                            @java.lang.Override
-                            public void publish(final java.lang.String data)
+                            @java.lang.Override public void publish(final java.lang.String data)
                             {
-                                org.wheatgenetics.androidlibraryuser.
-                                    MainActivity.this.setAndInvalidateTextViewText(data);
+                                org.wheatgenetics.androidlibraryuser.MainActivity
+                                    .this.setAndInvalidateTextViewText(data);
                             }
                         });
                 break;
