@@ -20,6 +20,7 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.about.AboutAlertDialog
  * org.wheatgenetics.about.OtherApps.Index
  * org.wheatgenetics.about.OtherAppsAlertDialog
+ * org.wheatgenetics.androidlibrary.DebouncingEditorActionListener
  * org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver
  * org.wheatgenetics.androidlibrary.R
  * org.wheatgenetics.androidlibrary.Utils
