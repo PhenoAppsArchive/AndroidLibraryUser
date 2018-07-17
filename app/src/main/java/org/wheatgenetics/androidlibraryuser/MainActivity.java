@@ -5,6 +5,7 @@ package org.wheatgenetics.androidlibraryuser;
  * android.content.pm.PackageInfo
  * android.content.pm.PackageManager.NameNotFoundException
  * android.os.Bundle
+ * android.support.annotation.IntRange
  * android.support.v7.app.AppCompatActivity
  * android.view.Menu
  * android.view.MenuInflater
@@ -56,9 +57,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     private org.wheatgenetics.usb.DeviceReaderTester         deviceReaderTester   = null;
     private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
-    private int toastButtonClickCount = 0, otherAppsButtonClickCount = 0,
-        deviceListButtonClickCount    = 0, scaleButtonClickCount     = 0,
-        scaleReaderButtonClickCount   = 0;
+    @android.support.annotation.IntRange(from = 0) private int toastButtonClickCount = 0,
+        otherAppsButtonClickCount = 0, deviceListButtonClickCount  = 0,
+        scaleButtonClickCount     = 0, scaleReaderButtonClickCount = 0;
     // endregion
 
     // region Private Methods
@@ -155,8 +156,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
         this.editText = (android.widget.EditText)
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.editText);
-        new org.wheatgenetics.androidlibrary.DebouncingEditorActionListener(this.editText,
-            this, org.wheatgenetics.androidlibraryuser.BuildConfig.DEBUG, 1000);
+        new org.wheatgenetics.androidlibrary.DebouncingEditorActionListener(this.editText, this,
+            org.wheatgenetics.androidlibraryuser.BuildConfig.DEBUG, /* delayMillis => */ 1000);
     }
 
     @java.lang.Override public boolean onCreateOptionsMenu(final android.view.Menu menu)
