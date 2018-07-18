@@ -23,7 +23,7 @@
 
 
     <Button
-        android:id="@+id/toastButton"
+        android:id="@+id/toastAndGetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +33,7 @@
         android:layout_marginBottom="250dp"
         android:text="Short Toast"
         android:textAllCaps="false"
-        android:onClick="onToastButtonClick" />
+        android:onClick="onToastAndGetButtonClick" />
 
     <Button
         android:id="@+id/otherAppsButton"

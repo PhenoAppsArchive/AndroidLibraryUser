@@ -17,6 +17,7 @@ package org.wheatgenetics.androidlibraryuser;
  * android.widget.TextView
  *
  * org.wheatgenetics.javalib.Utils
+ * org.wheatgenetics.javalib.Utils.Response
  *
  * org.wheatgenetics.about.AboutAlertDialog
  * org.wheatgenetics.about.OtherApps.Index
@@ -37,14 +38,15 @@ package org.wheatgenetics.androidlibraryuser;
  *
  * org.wheatgenetics.androidlibraryuser.BuildConfig
  * org.wheatgenetics.androidlibraryuser.R
+ * org.wheatgenetics.androidlibraryuser.WebViewActivity
  */
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver
 {
     // region Fields
     private android.widget.TextView textView = null;
-    private android.widget.Button toastButton = null, otherAppsButton   = null,
-        deviceListButton = null,  scaleButton = null, scaleReaderButton = null;
+    private android.widget.Button toastAndGetButton = null, otherAppsButton = null,
+        deviceListButton = null, scaleButton = null, scaleReaderButton = null;
     private android.widget.EditText editText = null;
 
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
@@ -57,9 +59,11 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     private org.wheatgenetics.usb.DeviceReaderTester         deviceReaderTester   = null;
     private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
-    @android.support.annotation.IntRange(from = 0) private int toastButtonClickCount = 0,
+    @android.support.annotation.IntRange(from = 0) private int toastAndGetButtonClickCount = 0,
         otherAppsButtonClickCount = 0, deviceListButtonClickCount  = 0,
         scaleButtonClickCount     = 0, scaleReaderButtonClickCount = 0;
+
+    private android.content.Intent intentInstance = null;
     // endregion
 
     // region Private Methods
@@ -68,8 +72,11 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     final java.lang.String text) { assert null != button; button.setText(text); }
 
 
-    private void setToastButtonText(final java.lang.String text)
-    { org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(this.toastButton, text); }
+    private void setToastAndGetButtonText(final java.lang.String text)
+    {
+        org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(
+            this.toastAndGetButton, text);
+    }
 
     private void setOtherAppsButtonText(final java.lang.String text)
     { org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(this.otherAppsButton, text); }
@@ -90,9 +97,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     }
 
 
-    private void resetToastButtonText     () { this.setToastButtonText     ("Short Toast"      ); }
-    private void resetOtherAppsButtonText () { this.setOtherAppsButtonText ("Other Apps"       ); }
-    private void resetDeviceListButtonText() { this.setDeviceListButtonText("DeviceList.size()"); }
+    private void resetToastAndGetButtonText() { this.setToastAndGetButtonText("Short Toast"     ); }
+    private void resetOtherAppsButtonText  () { this.setOtherAppsButtonText ("Other Apps"       ); }
+    private void resetDeviceListButtonText () { this.setDeviceListButtonText("DeviceList.size()"); }
 
     private void resetScaleButtonText() { this.setScaleButtonText("ExtraDevice.information()"); }
 
@@ -110,6 +117,20 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         assert null != this.textView; this.textView.invalidate();
     }
     // endregion
+
+    private android.content.Intent intent(
+    final java.lang.String content, final java.lang.String encoding)
+    {
+        if (null == this.intentInstance) this.intentInstance = new android.content.Intent(
+            this, org.wheatgenetics.androidlibraryuser.WebViewActivity.class);
+
+        this.intentInstance.putExtra(
+            org.wheatgenetics.androidlibraryuser.WebViewActivity.CONTENT, content);
+        this.intentInstance.putExtra(
+            org.wheatgenetics.androidlibraryuser.WebViewActivity.ENCODING, encoding);
+
+        return this.intentInstance;
+    }
 
     private void showChangeLog()
     {
@@ -133,9 +154,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
 
 
-        this.toastButton = (android.widget.Button)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.toastButton);
-        this.resetToastButtonText();
+        this.toastAndGetButton = (android.widget.Button)
+            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.toastAndGetButton);
+        this.resetToastAndGetButtonText();
 
         this.otherAppsButton = (android.widget.Button)
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.otherAppsButton);
@@ -199,20 +220,54 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // endregion
 
     // region Event Handlers
-    public void onToastButtonClick(final android.view.View view)
+    public void onToastAndGetButtonClick(final android.view.View view)
     {
-        switch (this.toastButtonClickCount)
+        switch (this.toastAndGetButtonClickCount)
         {
             case 0: org.wheatgenetics.androidlibrary.Utils.showShortToast(this, "short"); break;
             case 1: org.wheatgenetics.androidlibrary.Utils.showLongToast (this, "long" ); break;
-            case 2: this.showChangeLog();                                                 break;
+
+            case 2:
+                final org.wheatgenetics.javalib.Utils.Response response;
+                {
+                    java.net.URL url;
+                    try
+                    {
+                        url = new java.net.URL(             // throws java.net.MalformedURLException
+                            /* protocol => */ "http"           ,
+                            /* host     => */ "www.example.org",
+                            /* file     => */ "index.html"     );
+                    }
+                    catch (final java.net.MalformedURLException e) { url = null; }
+                    response = org.wheatgenetics.javalib.Utils.threadedGet(url);
+                }
+                if (null == response)
+                    this.setTextViewText("response is null");
+                else
+                    this.startActivity(this.intent(response.content(), response.contentEncoding()));
+                break;
+
+            case 3: this.showChangeLog(); break;
         }
 
-        switch (this.toastButtonClickCount)
+        switch (this.toastAndGetButtonClickCount)
         {
-            case 0 : this.toastButtonClickCount++  ; this.setToastButtonText("Long Toast"); break;
-            case 1 : this.toastButtonClickCount++  ; this.setToastButtonText("ChangeLog" ); break;
-            default: this.toastButtonClickCount = 0; this.resetToastButtonText();           break;
+            case 0:
+                this.toastAndGetButtonClickCount++;
+                this.setToastAndGetButtonText("Long Toast");
+                break;
+
+            case 1:
+                this.toastAndGetButtonClickCount++;
+                this.setToastAndGetButtonText("http://www.example.org/");
+                break;
+
+            case 2:
+                this.toastAndGetButtonClickCount++;
+                this.setToastAndGetButtonText("ChangeLog");
+                break;
+
+            default: this.toastAndGetButtonClickCount = 0; this.resetToastAndGetButtonText(); break;
         }
     }
 
