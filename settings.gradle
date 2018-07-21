@@ -1,1 +1,1 @@
-include ':app', ':javalib', ':androidlibrary-debug'
+include ':app', ':javalib', ':androidlibrary-release'
