@@ -1,6 +1,7 @@
 package org.wheatgenetics.androidlibraryuser;
 
-/** Uses:
+/**
+ * Uses:
  * android.content.Intent
  * android.content.pm.PackageInfo
  * android.content.pm.PackageManager.NameNotFoundException
@@ -45,7 +46,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 {
     // region Fields
     private android.widget.TextView textView = null;
-    private android.widget.Button toastAndGetButton = null, otherAppsButton = null,
+    private android.widget.Button button = null, otherAppsButton = null,
         deviceListButton = null, scaleButton = null, scaleReaderButton = null;
     private android.widget.EditText editText = null;
 
@@ -59,7 +60,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     private org.wheatgenetics.usb.DeviceReaderTester         deviceReaderTester   = null;
     private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
-    @android.support.annotation.IntRange(from = 0) private int toastAndGetButtonClickCount = 0,
+    @android.support.annotation.IntRange(from = 0) private int buttonClickCount = 0,
         otherAppsButtonClickCount = 0, deviceListButtonClickCount  = 0,
         scaleButtonClickCount     = 0, scaleReaderButtonClickCount = 0;
 
@@ -72,11 +73,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     final java.lang.String text) { assert null != button; button.setText(text); }
 
 
-    private void setToastAndGetButtonText(final java.lang.String text)
-    {
-        org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(
-            this.toastAndGetButton, text);
-    }
+    private void setButtonText(final java.lang.String text)
+    { org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(this.button, text); }
 
     private void setOtherAppsButtonText(final java.lang.String text)
     { org.wheatgenetics.androidlibraryuser.MainActivity.setButtonText(this.otherAppsButton, text); }
@@ -97,9 +95,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     }
 
 
-    private void resetToastAndGetButtonText() { this.setToastAndGetButtonText("Short Toast"     ); }
-    private void resetOtherAppsButtonText  () { this.setOtherAppsButtonText ("Other Apps"       ); }
-    private void resetDeviceListButtonText () { this.setDeviceListButtonText("DeviceList.size()"); }
+    private void resetButtonText          () { this.setButtonText          ("Short Toast"      ); }
+    private void resetOtherAppsButtonText () { this.setOtherAppsButtonText ("Other Apps"       ); }
+    private void resetDeviceListButtonText() { this.setDeviceListButtonText("DeviceList.size()"); }
 
     private void resetScaleButtonText() { this.setScaleButtonText("ExtraDevice.information()"); }
 
@@ -150,33 +148,29 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
 
 
-        this.textView = (android.widget.TextView)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
+        this.textView = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
 
 
-        this.toastAndGetButton = (android.widget.Button)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.toastAndGetButton);
-        this.resetToastAndGetButtonText();
+        this.button = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.button);
+        this.resetButtonText();
 
-        this.otherAppsButton = (android.widget.Button)
+        this.otherAppsButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.otherAppsButton);
         this.resetOtherAppsButtonText();
 
-        this.deviceListButton = (android.widget.Button)
+        this.deviceListButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.deviceListButton);
         this.resetDeviceListButtonText();
 
-        this.scaleButton = (android.widget.Button)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleButton);
+        this.scaleButton = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleButton);
         this.resetScaleButtonText();
 
-        this.scaleReaderButton = (android.widget.Button)
+        this.scaleReaderButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleReaderButton);
         this.resetScaleReaderButtonText();
 
 
-        this.editText = (android.widget.EditText)
-            this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.editText);
+        this.editText = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.editText);
         new org.wheatgenetics.androidlibrary.DebouncingEditorActionListener(this.editText, this,
             org.wheatgenetics.androidlibraryuser.BuildConfig.DEBUG, /* delayMillis => */ 1000);
     }
@@ -220,9 +214,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // endregion
 
     // region Event Handlers
-    public void onToastAndGetButtonClick(final android.view.View view)
+    public void onButtonClick(final android.view.View view)
     {
-        switch (this.toastAndGetButtonClickCount)
+        switch (this.buttonClickCount)
         {
             case 0: org.wheatgenetics.androidlibrary.Utils.showShortToast(this, "short"); break;
             case 1: org.wheatgenetics.androidlibrary.Utils.showLongToast (this, "long" ); break;
@@ -250,24 +244,12 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             case 3: this.showChangeLog(); break;
         }
 
-        switch (this.toastAndGetButtonClickCount)
+        switch (this.buttonClickCount)
         {
-            case 0:
-                this.toastAndGetButtonClickCount++;
-                this.setToastAndGetButtonText("Long Toast");
-                break;
-
-            case 1:
-                this.toastAndGetButtonClickCount++;
-                this.setToastAndGetButtonText("http://www.example.org/");
-                break;
-
-            case 2:
-                this.toastAndGetButtonClickCount++;
-                this.setToastAndGetButtonText("ChangeLog");
-                break;
-
-            default: this.toastAndGetButtonClickCount = 0; this.resetToastAndGetButtonText(); break;
+            case 0 : this.buttonClickCount++; this.setButtonText("Long Toast"             ); break;
+            case 1 : this.buttonClickCount++; this.setButtonText("http://www.example.org/"); break;
+            case 2 : this.buttonClickCount++; this.setButtonText("ChangeLog"              ); break;
+            default: this.buttonClickCount = 0; this.resetButtonText()                     ; break;
         }
     }
 
