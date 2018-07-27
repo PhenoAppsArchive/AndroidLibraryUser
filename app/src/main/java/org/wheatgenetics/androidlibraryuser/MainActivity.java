@@ -17,6 +17,7 @@ package org.wheatgenetics.androidlibraryuser;
  * android.widget.EditText
  * android.widget.TextView
  *
+ * org.wheatgenetics.javalib.Dir
  * org.wheatgenetics.javalib.Utils
  * org.wheatgenetics.javalib.Utils.Response
  *
@@ -27,6 +28,7 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver
  * org.wheatgenetics.androidlibrary.PermissionDir
  * org.wheatgenetics.androidlibrary.R
+ * org.wheatgenetics.androidlibrary.RequestDir
  * org.wheatgenetics.androidlibrary.Utils
  * org.wheatgenetics.changelog.ChangeLogAlertDialog
  * org.wheatgenetics.usb.DeviceListTester
@@ -53,6 +55,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
     private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.androidlibrary.PermissionDir   permissionDir        = null;
+    private org.wheatgenetics.androidlibrary.RequestDir      requestDir           = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
     private org.wheatgenetics.about.AboutAlertDialog         aboutAlertDialog     = null;
@@ -118,16 +121,16 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     }
     // endregion
 
-    private void listAll()
+    private void listAll(final org.wheatgenetics.javalib.Dir dir)
     {
-        if (null != this.permissionDir)
+        if (null != dir)
         {
             java.lang.String text;
             try
             {
-                final java.lang.String lines[] = this.permissionDir.list();  // throws java.securi-
-                                                                             //  ty.AccessControlEx-
-                if (null == lines)                                           //  ception
+                final java.lang.String lines[] = dir.list();             // throws java.security-
+                                                                         //  .AccessControlException
+                if (null == lines)
                     text = "null";
                 else
                     if (lines.length < 1)
@@ -212,10 +215,13 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             /* delayMillis => */1000);
 
 
+        final java.lang.String
+            name = "AndroidLibraryUser", blankHiddenFileName = ".androidlibraryuser";
         this.permissionDir = new org.wheatgenetics.androidlibrary.PermissionDir(
-            /* activity            => */this,
-            /* name                => */"AndroidLibraryBuilder",
-            /* blankHiddenFileName => */".androidlibrarybuilder");
+            /* activity => */this, name, blankHiddenFileName);
+        this.requestDir = new org.wheatgenetics.androidlibrary.RequestDir(
+            /* activity    => */this, name, blankHiddenFileName,
+            /* requestCode => */100);
     }
 
     @java.lang.Override public boolean onCreateOptionsMenu(final android.view.Menu menu)
@@ -269,9 +275,10 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                 org.wheatgenetics.androidlibrary.Utils.showLongToast (this,"long" );
                 break;
 
-            case 2: this.listAll(); break;
+            case 2:                 this.listAll(this.permissionDir); break;
+            case 3: case 4: case 5: this.listAll(this.requestDir   ); break;
 
-            case 3:
+            case 6:
                 final org.wheatgenetics.javalib.Utils.Response response;
                 {
                     java.net.URL url;
@@ -291,16 +298,25 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                     this.startActivity(this.intent(response.content(), response.contentEncoding()));
                 break;
 
-            case 4: this.showChangeLog(); break;
+            case 7: this.showChangeLog(); break;
         }
 
         switch (this.buttonClickCount)
         {
-            case 0 : this.buttonClickCount++; this.setButtonText("Long Toast"             ); break;
-            case 1 : this.buttonClickCount++; this.setButtonText("permissionDir.list()"   ); break;
-            case 2 : this.buttonClickCount++; this.setButtonText("http://www.example.org/"); break;
-            case 3 : this.buttonClickCount++; this.setButtonText("ChangeLog"              ); break;
-            default: this.buttonClickCount = 0; this.resetButtonText()                     ; break;
+            case 0: case 1: case 2: case 3: case 4: case 5: case 6: this.buttonClickCount++; break;
+            default: this.buttonClickCount = 0                                             ; break;
+        }
+
+        switch (this.buttonClickCount)
+        {
+            case 0 : this.resetButtonText()                        ; break;
+            case 1 : this.setButtonText("Long Toast"              ); break;
+            case 2 : this.setButtonText("permissionDir.list()"    ); break;
+            case 3 : this.setButtonText("requestDir.list() 1 of 3"); break;
+            case 4 : this.setButtonText("requestDir.list() 2 of 3"); break;
+            case 5 : this.setButtonText("requestDir.list() 3 of 3"); break;
+            case 6 : this.setButtonText("http://www.example.org/" ); break;
+            case 7 : this.setButtonText("ChangeLog"               ); break;
         }
     }
 
