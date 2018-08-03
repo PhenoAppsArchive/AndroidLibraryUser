@@ -14,6 +14,7 @@ package org.wheatgenetics.usb;
 @java.lang.SuppressWarnings("ClassExplicitlyExtendsObject")
 public class DeviceReaderTester extends java.lang.Object
 {
+    @java.lang.SuppressWarnings({"UnnecessaryInterfaceModifier"})
     public interface Publisher { public abstract void publish(java.lang.String data); }
 
     // region Fields
@@ -81,7 +82,9 @@ public class DeviceReaderTester extends java.lang.Object
         this.publisher = publisher;
     }
 
-    public void    executeReader() {        this.deviceReader().execute(); }
-    public boolean cancelReader () { return this.deviceReader().cancel (); }
+    public void executeReader() { this.deviceReader().execute(); }
+
+    @java.lang.SuppressWarnings({"UnusedReturnValue"}) public boolean cancelReader()
+    { return this.deviceReader().cancel (); }
     // endregion
 }

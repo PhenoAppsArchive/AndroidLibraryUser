@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="250dp"
         android:text="Short Toast"
+        tools:ignore="HardcodedText"
         android:textAllCaps="false"
         android:onClick="onButtonClick" />
 
@@ -45,6 +46,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="150dp"
         android:text="Other Apps"
+        tools:ignore="HardcodedText"
         android:textAllCaps="false"
         android:onClick="onOtherAppsButtonClick" />
 
@@ -58,6 +60,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="50dp"
         android:text="DeviceList.size()"
+        tools:ignore="HardcodedText"
         android:textAllCaps="false"
         android:onClick="onDeviceListButtonClick" />
 
@@ -71,6 +74,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="50dp"
         android:text="ExtraDevice.information()"
+        tools:ignore="HardcodedText"
         android:textAllCaps="false"
         android:onClick="onScaleButtonClick" />
 
@@ -84,6 +88,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="150dp"
         android:text="DeviceReader.execute()"
+        tools:ignore="HardcodedText"
         android:textAllCaps="false"
         android:onClick="onScaleReaderButtonClick" />
 
@@ -102,6 +107,8 @@
         android:inputType="text"
         android:focusableInTouchMode="true"
         android:selectAllOnFocus="true"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+
+        tools:ignore="LabelFor" />
 
 </android.support.constraint.ConstraintLayout>

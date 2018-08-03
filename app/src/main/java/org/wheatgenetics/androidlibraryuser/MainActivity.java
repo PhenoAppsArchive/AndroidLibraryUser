@@ -288,7 +288,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // endregion
 
     // region Event Handlers
-    public void onButtonClick(final android.view.View view)
+    public void onButtonClick(@java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.buttonClickCount)
         {
@@ -345,7 +345,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onOtherAppsButtonClick(final android.view.View view)
+    public void onOtherAppsButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.otherAppsButtonClickCount)
         {
@@ -400,7 +401,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onDeviceListButtonClick(final android.view.View view)
+    public void onDeviceListButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         if (null == this.deviceListTester)
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
@@ -421,7 +423,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onScaleButtonClick(final android.view.View view)
+    public void onScaleButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.scaleButtonClickCount)
         {
@@ -460,7 +463,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onScaleReaderButtonClick(final android.view.View view)
+    public void onScaleReaderButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.scaleReaderButtonClickCount)
         {
