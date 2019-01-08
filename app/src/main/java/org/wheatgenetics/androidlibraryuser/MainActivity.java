@@ -6,9 +6,10 @@ package org.wheatgenetics.androidlibraryuser;
  * android.content.pm.PackageInfo
  * android.content.pm.PackageManager
  * android.content.pm.PackageManager.NameNotFoundException
+ * android.Manifest.permission
  * android.os.Bundle
  * android.support.annotation.IntRange
- * * android.support.annotation.NonNull
+ * android.support.annotation.NonNull
  * android.support.v7.app.AppCompatActivity
  * android.view.Menu
  * android.view.MenuInflater
@@ -74,7 +75,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         otherAppsButtonClickCount = 0, deviceListButtonClickCount  = 0,
         scaleButtonClickCount     = 0, scaleReaderButtonClickCount = 0;
 
-    private android.content.Intent intentInstance = null;
+    private android.content.Intent webIntentInstance = null;
     // endregion
 
     // region Private Methods
@@ -131,6 +132,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         if (null != dir)
         {
             java.lang.String text;
+
             try
             {
                 dir.createIfMissing();                    // throws IOException, PermissionException
@@ -158,22 +160,23 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             }
             catch (final java.io.IOException | org.wheatgenetics.javalib.Dir.PermissionException e)
             { text = e.getMessage(); }
+
             this.setTextViewText(text);
         }
     }
 
-    private android.content.Intent intent(
+    private android.content.Intent webIntent(
     final java.lang.String content, final java.lang.String encoding)
     {
-        if (null == this.intentInstance) this.intentInstance = new android.content.Intent(
+        if (null == this.webIntentInstance) this.webIntentInstance = new android.content.Intent(
             this, org.wheatgenetics.androidlibraryuser.WebViewActivity.class);
 
-        this.intentInstance.putExtra(
+        this.webIntentInstance.putExtra(
             org.wheatgenetics.androidlibraryuser.WebViewActivity.CONTENT, content);
-        this.intentInstance.putExtra(
+        this.webIntentInstance.putExtra(
             org.wheatgenetics.androidlibraryuser.WebViewActivity.ENCODING, encoding);
 
-        return this.intentInstance;
+        return this.webIntentInstance;
     }
 
     private void showChangeLog()
@@ -297,7 +300,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                 break;
 
             case 1:
-                org.wheatgenetics.androidlibrary.Utils.showLongToast (this,"long" );
+                org.wheatgenetics.androidlibrary.Utils.showLongToast(this,"long" );
                 break;
 
             case 2:                 this.listAll(this.permissionDir); break;
@@ -320,7 +323,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                 if (null == response)
                     this.setTextViewText("response is null");
                 else
-                    this.startActivity(this.intent(response.content(), response.contentEncoding()));
+                    this.startActivity(this.webIntent(
+                        response.content(), response.contentEncoding()));
                 break;
 
             case 7: this.showChangeLog(); break;
@@ -334,14 +338,14 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
         switch (this.buttonClickCount)
         {
-            case 0 : this.resetButtonText()                        ; break;
-            case 1 : this.setButtonText("Long Toast"              ); break;
-            case 2 : this.setButtonText("permissionDir.list()"    ); break;
-            case 3 : this.setButtonText("requestDir.list() 1 of 3"); break;
-            case 4 : this.setButtonText("requestDir.list() 2 of 3"); break;
-            case 5 : this.setButtonText("requestDir.list() 3 of 3"); break;
-            case 6 : this.setButtonText("http://www.example.org/" ); break;
-            case 7 : this.setButtonText("ChangeLog"               ); break;
+            case 0: this.resetButtonText()                        ; break;
+            case 1: this.setButtonText("Long Toast"              ); break;
+            case 2: this.setButtonText("permissionDir.list()"    ); break;
+            case 3: this.setButtonText("requestDir.list() 1 of 3"); break;
+            case 4: this.setButtonText("requestDir.list() 2 of 3"); break;
+            case 5: this.setButtonText("requestDir.list() 3 of 3"); break;
+            case 6: this.setButtonText("http://www.example.org/" ); break;
+            case 7: this.setButtonText("ChangeLog"               ); break;
         }
     }
 
