@@ -28,5 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WebViewActivity" />
+        <activity android:name=".mstrdtl.ItemActivity" />
+        <activity android:name=".mstrdtl.ListActivity" />
     </application>
 </manifest>

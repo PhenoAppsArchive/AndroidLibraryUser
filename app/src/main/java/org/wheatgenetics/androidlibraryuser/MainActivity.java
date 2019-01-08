@@ -44,6 +44,8 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.usb.ScaleTester
  * org.wheatgenetics.zxing.BarcodeScanner
  *
+ * org.wheatgenetics.androidlibrarybuilder.mstrdtl.ListActivity
+ *
  * org.wheatgenetics.androidlibraryuser.BuildConfig
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.androidlibraryuser.WebViewActivity
@@ -75,7 +77,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         otherAppsButtonClickCount = 0, deviceListButtonClickCount  = 0,
         scaleButtonClickCount     = 0, scaleReaderButtonClickCount = 0;
 
-    private android.content.Intent webIntentInstance = null;
+    private android.content.Intent webIntentInstance = null, listIntentInstance = null;
     // endregion
 
     // region Private Methods
@@ -165,6 +167,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
+    // region Intent Private Methods
     private android.content.Intent webIntent(
     final java.lang.String content, final java.lang.String encoding)
     {
@@ -178,6 +181,15 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
         return this.webIntentInstance;
     }
+
+    private android.content.Intent listIntent()
+    {
+        if (null == this.listIntentInstance) this.listIntentInstance =
+            new android.content.Intent(this,
+                org.wheatgenetics.androidlibraryuser.mstrdtl.ListActivity.class);
+        return this.listIntentInstance;
+    }
+    // endregion
 
     private void showChangeLog()
     {
@@ -327,13 +339,15 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                         response.content(), response.contentEncoding()));
                 break;
 
-            case 7: this.showChangeLog(); break;
+            case 7: this.startActivity(this.listIntent()); break;
+            case 8: this.showChangeLog()                 ; break;
         }
 
         switch (this.buttonClickCount)
         {
-            case 0: case 1: case 2: case 3: case 4: case 5: case 6: this.buttonClickCount++; break;
-            default: this.buttonClickCount = 0                                             ; break;
+            case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+                this.buttonClickCount++; break;
+            default: this.buttonClickCount = 0; break;
         }
 
         switch (this.buttonClickCount)
@@ -345,7 +359,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             case 4: this.setButtonText("requestDir.list() 2 of 3"); break;
             case 5: this.setButtonText("requestDir.list() 3 of 3"); break;
             case 6: this.setButtonText("http://www.example.org/" ); break;
-            case 7: this.setButtonText("ChangeLog"               ); break;
+            case 7: this.setButtonText("Master-Detail Flow"      ); break;
+            case 8: this.setButtonText("ChangeLog"               ); break;
         }
     }
 
