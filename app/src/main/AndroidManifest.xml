@@ -27,8 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebViewActivity" />
-        <activity android:name=".mstrdtl.ItemActivity" />
-        <activity android:name=".mstrdtl.ListActivity" />
+        <activity android:name=".WebViewActivity"                />
+        <activity android:name=".mstrdtl.ItemActivity"           />
+        <activity android:name=".mstrdtl.ChangeableItemActivity" />
+        <activity android:name=".mstrdtl.ListActivity"           />
+        <activity android:name=".mstrdtl.ChangeableListActivity" />
     </application>
 </manifest>

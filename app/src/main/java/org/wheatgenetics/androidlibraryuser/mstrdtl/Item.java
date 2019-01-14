@@ -4,6 +4,8 @@ package org.wheatgenetics.androidlibraryuser.mstrdtl;
  * Uses:
  * android.support.annotation.IntRange
  * android.support.annotation.NonNull
+ * android.support.annotation.RestrictTo
+ * android.support.annotation.RestrictTo.Scope
  *
  * org.wheatgenetics.javalib.mstrdtl.Item
  */
@@ -14,7 +16,10 @@ class Item extends java.lang.Object implements org.wheatgenetics.javalib.mstrdtl
     @android.support.annotation.IntRange(from = org.wheatgenetics.javalib.mstrdtl.Item.MIN_POSITION)
     private final int position;
 
-    @android.support.annotation.NonNull private final java.lang.String title, content;
+    @android.support.annotation.NonNull private final java.lang.String title;
+
+    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @android.support.annotation.NonNull java.lang.String content;
     // endregion
 
     @android.support.annotation.IntRange(from = org.wheatgenetics.javalib.mstrdtl.Item.MIN_POSITION)
