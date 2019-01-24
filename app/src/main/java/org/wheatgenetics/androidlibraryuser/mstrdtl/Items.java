@@ -39,7 +39,6 @@ class Items extends java.lang.Object implements org.wheatgenetics.javalib.mstrdt
     @java.lang.Override public void append()
     { this.add(new org.wheatgenetics.androidlibraryuser.mstrdtl.Item(this.size())); }
 
-    @android.support.annotation.IntRange(from = org.wheatgenetics.javalib.mstrdtl.Item.MIN_POSITION)
     @java.lang.Override public int size()
     { return null == this.itemsInstance ? 0 : this.itemsInstance.size(); }
 
