@@ -265,13 +265,13 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
     @java.lang.Override public boolean onOptionsItemSelected(final android.view.MenuItem item)
     {
-        assert null != item; switch (item.getItemId())
+        assert null != item;
+        if (item.getItemId() == org.wheatgenetics.androidlibrary.R.id.cameraOptionsMenuItem)
         {
-            case org.wheatgenetics.androidlibrary.R.id.cameraOptionsMenuItem:
-                if (null == this.barcodeScanner)
-                    this.barcodeScanner = new org.wheatgenetics.zxing.BarcodeScanner(this);
-                this.barcodeScanner.scan();
-                return true;
+            if (null == this.barcodeScanner)
+                this.barcodeScanner = new org.wheatgenetics.zxing.BarcodeScanner(this);
+            this.barcodeScanner.scan();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -313,7 +313,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // endregion
 
     // region Event Handlers
-    public void onButtonClick(@java.lang.SuppressWarnings({"unused"}) final android.view.View view)
+    public void onButtonClick(final android.view.View view)
     {
         switch (this.buttonClickCount)
         {
@@ -376,8 +376,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onOtherAppsButtonClick(
-    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
+    public void onOtherAppsButtonClick(final android.view.View view)
     {
         switch (this.otherAppsButtonClickCount)
         {
@@ -432,8 +431,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onDeviceListButtonClick(
-    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
+    public void onDeviceListButtonClick(final android.view.View view)
     {
         if (null == this.deviceListTester)
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
@@ -454,8 +452,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onScaleButtonClick(
-    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
+    public void onScaleButtonClick(final android.view.View view)
     {
         switch (this.scaleButtonClickCount)
         {
@@ -494,8 +491,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         }
     }
 
-    public void onScaleReaderButtonClick(
-    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
+    public void onScaleReaderButtonClick(final android.view.View view)
     {
         switch (this.scaleReaderButtonClickCount)
         {

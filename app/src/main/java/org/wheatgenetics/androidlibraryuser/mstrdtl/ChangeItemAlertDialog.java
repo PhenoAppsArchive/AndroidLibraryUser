@@ -3,6 +3,7 @@ package org.wheatgenetics.androidlibraryuser.mstrdtl;
 /**
  * Uses:
  * android.app.Activity
+ * android.annotation.SuppressLint
  * android.view.View
  * android.view.View.OnClickListener
  * android.widget.EditText
@@ -40,6 +41,7 @@ class ChangeItemAlertDialog extends org.wheatgenetics.androidlibrary.AlertDialog
     {
         this.setTitle("Change Item");
         {
+            @android.annotation.SuppressLint({"InflateParams"})
             final android.view.View view = this.layoutInflater().inflate(
                 org.wheatgenetics.androidlibraryuser.R.layout.alert_dialog_change_item,
                 null);

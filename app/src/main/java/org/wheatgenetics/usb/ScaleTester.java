@@ -4,6 +4,8 @@ package org.wheatgenetics.usb;
  * Uses:
  * android.app.Activity
  * android.support.annotation.NonNull
+ * android.support.annotation.RestrictTo
+ * android.support.annotation.RestrictTo.Scope
  *
  * org.wheatgenetics.usb.ExtraDevice
  * org.wheatgenetics.usb.ExtraDeviceTester
@@ -11,8 +13,8 @@ package org.wheatgenetics.usb;
  */
 public class ScaleTester extends org.wheatgenetics.usb.ExtraDeviceTester
 {
-    @java.lang.Override
-    org.wheatgenetics.usb.ExtraDevice extraDevice()
+    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @java.lang.Override org.wheatgenetics.usb.ExtraDevice extraDevice()
     {
         if (null == this.extraDeviceInstance)
             this.extraDeviceInstance = new org.wheatgenetics.usb.Scale(this.getActivity());

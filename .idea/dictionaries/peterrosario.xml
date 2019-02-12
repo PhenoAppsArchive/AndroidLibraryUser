@@ -11,7 +11,10 @@
       <w>Tokener</w>
       <w>USERDEFINED</w>
       <w>androidlibrary</w>
+      <w>androidlibrarybuilder</w>
+      <w>androidlibraryuser</w>
       <w>cnumb</w>
+      <w>debouncing</w>
       <w>ecells</w>
       <w>ecols</w>
       <w>edata</w>
@@ -19,6 +22,7 @@
       <w>fullname</w>
       <w>javalib</w>
       <w>msgs</w>
+      <w>mstrdtl</w>
       <w>nisl</w>
       <w>redistributors</w>
       <w>rnumb</w>
