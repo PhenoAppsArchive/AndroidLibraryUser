@@ -108,7 +108,8 @@
         android:focusableInTouchMode="true"
         android:selectAllOnFocus="true"
         android:imeOptions="actionDone"
+        android:autofillHints="auto"
 
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor,UnusedAttribute" />
 
 </android.support.constraint.ConstraintLayout>

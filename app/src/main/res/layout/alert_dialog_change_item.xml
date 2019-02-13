@@ -13,5 +13,6 @@
     android:imeOptions="actionDone"
     android:inputType="textMultiLine"
     android:selectAllOnFocus="true"
+    android:autofillHints="auto"
 
-    tools:ignore="LabelFor" />
+    tools:ignore="LabelFor,UnusedAttribute" />
