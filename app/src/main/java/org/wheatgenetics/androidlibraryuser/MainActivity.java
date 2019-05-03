@@ -62,9 +62,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         deviceListButton = null, scaleButton = null, scaleReaderButton = null;
     private android.widget.EditText editText = null;
 
-    private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.androidlibrary.PermissionDir   permissionDir        = null;
     private org.wheatgenetics.androidlibrary.RequestDir      requestDir           = null;
+    private org.wheatgenetics.zxing.BarcodeScanner           barcodeScanner       = null;
     private org.wheatgenetics.changelog.ChangeLogAlertDialog changeLogAlertDialog = null;
     private org.wheatgenetics.about.OtherAppsAlertDialog     otherAppsAlertDialog = null;
     private org.wheatgenetics.about.AboutAlertDialog         aboutAlertDialog     = null;
@@ -304,10 +304,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
     // region org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver Overridden Method
     @java.lang.Override public void receiveText(final java.lang.String text)
-    {
-        assert null != this.textView; this.textView.setText(text) ;
-        assert null != this.editText; this.editText.requestFocus();
-    }
+    { this.setTextViewText(text); assert null != this.editText; this.editText.requestFocus(); }
     // endregion
     // endregion
 
@@ -321,7 +318,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                 break;
 
             case 1:
-                org.wheatgenetics.androidlibrary.Utils.showLongToast(this,"long" );
+                org.wheatgenetics.androidlibrary.Utils.showLongToast(this,"long");
                 break;
 
             case 2:                 this.listAll(this.permissionDir); break;
