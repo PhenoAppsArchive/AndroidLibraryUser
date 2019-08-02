@@ -261,9 +261,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         return true;
     }
 
-    @java.lang.Override public boolean onOptionsItemSelected(final android.view.MenuItem item)
+    @java.lang.Override public boolean onOptionsItemSelected(
+    @android.support.annotation.NonNull final android.view.MenuItem item)
     {
-        assert null != item;
         if (item.getItemId() == org.wheatgenetics.androidlibrary.R.id.cameraOptionsMenuItem)
         {
             if (null == this.barcodeScanner)
