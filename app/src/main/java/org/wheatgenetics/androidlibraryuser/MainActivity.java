@@ -54,7 +54,10 @@ package org.wheatgenetics.androidlibraryuser;
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver
 {
-    private static final int REQUEST_CODE = 1, MIN_BUTTON_STATE = 0;
+    // region Constants
+    private static final int              REQUEST_CODE = 1, MIN_BUTTON_STATE = 0;
+    private static final java.lang.String BUTTON_STATES_KEY = "buttonStates"    ;
+    // endregion
 
     // region Fields
     private android.widget.TextView textView = null;
@@ -292,22 +295,17 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
 
         this.button = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.button);
-        this.resetButtonText();
 
         this.otherAppsButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.otherAppsButton);
-        this.resetOtherAppsButtonText();
 
         this.deviceListButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.deviceListButton);
-        this.resetDeviceListButtonText();
 
         this.scaleButton = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleButton);
-        this.resetScaleButtonText();
 
         this.scaleReaderButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleReaderButton);
-        this.resetScaleReaderButtonText();
 
 
         this.editText = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.editText);
@@ -316,13 +314,38 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             /* delayMillis => */1000);
 
 
-        final java.lang.String
-            name = "AndroidLibraryUser", blankHiddenFileName = ".androidlibraryuser";
-        this.permissionDir = new org.wheatgenetics.androidlibrary.PermissionDir(
-            /* activity => */this, name, blankHiddenFileName);
-        this.requestDir = new org.wheatgenetics.androidlibrary.RequestDir(
-            /* activity    => */this, name, blankHiddenFileName,
-            /* requestCode => */ org.wheatgenetics.androidlibraryuser.MainActivity.REQUEST_CODE);
+        {
+            final java.lang.String
+                name = "AndroidLibraryUser", blankHiddenFileName = ".androidlibraryuser";
+            this.permissionDir = new org.wheatgenetics.androidlibrary.PermissionDir(
+                /* activity => */this, name, blankHiddenFileName);
+            this.requestDir = new org.wheatgenetics.androidlibrary.RequestDir(
+                /* activity    => */this, name, blankHiddenFileName,
+                /* requestCode => */
+                    org.wheatgenetics.androidlibraryuser.MainActivity.REQUEST_CODE);
+        }
+
+
+        if (null != savedInstanceState) if (savedInstanceState.containsKey(
+        org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY))
+        {
+            // noinspection CStyleArrayDeclaration
+            final int buttonStates[] = savedInstanceState.getIntArray(
+                org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY);
+            if (null != buttonStates)
+            {
+                this.buttonState            = buttonStates[0];
+                this.otherAppsButtonState   = buttonStates[1];
+                this.deviceListButtonState  = buttonStates[2];
+                this.scaleButtonState       = buttonStates[3];
+                this.scaleReaderButtonState = buttonStates[4];
+            }
+        }
+        this.makeButtonReflectCurrentButtonState           ();
+        this.makeOtherAppsButtonReflectCurrentButtonState  ();
+        this.makeDeviceListButtonReflectCurrentButtonState ();
+        this.makeScaleButtonReflectCurrentButtonState      ();
+        this.makeScaleReaderButtonReflectCurrentButtonState();
     }
 
     @java.lang.Override public boolean onCreateOptionsMenu(final android.view.Menu menu)
@@ -371,6 +394,15 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                 if (android.content.pm.PackageManager.PERMISSION_GRANTED == grantResult)
                     { this.listAll(this.requestDir); break; }
         }
+    }
+
+    @java.lang.Override protected void onSaveInstanceState(final android.os.Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        if (null != outState) outState.putIntArray(
+            org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY, new int[]{
+                this.buttonState, this.otherAppsButtonState, this.deviceListButtonState,
+                this.scaleButtonState, this.scaleReaderButtonState});
     }
 
     // region org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver Overridden Method
