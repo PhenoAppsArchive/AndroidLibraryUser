@@ -212,6 +212,73 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                     org.wheatgenetics.androidlibraryuser.R.raw.changelog);
         this.changeLogAlertDialog.show();
     }
+
+    // region make*ButtonReflectCurrentButtonState() Private Methods
+    private void makeButtonReflectCurrentButtonState()
+    {
+        switch (this.buttonState)
+        {
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+                this.resetButtonText(); break;
+            case 1: this.setButtonText("Long Toast"                   ); break;
+            case 2: this.setButtonText("permissionDir.list()"         ); break;
+            case 3: this.setButtonText("requestDir.list() 1 of 3"     ); break;
+            case 4: this.setButtonText("requestDir.list() 2 of 3"     ); break;
+            case 5: this.setButtonText("requestDir.list() 3 of 3"     ); break;
+            case 6: this.setButtonText("http://www.example.org/"      ); break;
+            case 7: this.setButtonText("Master-Detail Flow"           ); break;
+            case 8: this.setButtonText("Changeable Master-Detail Flow"); break;
+            case 9: this.setButtonText("ChangeLog"                    ); break;
+        }
+    }
+
+    private void makeOtherAppsButtonReflectCurrentButtonState()
+    {
+        switch (this.otherAppsButtonState)
+        {
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+                this.resetOtherAppsButtonText(); break;
+            case 1: this.setOtherAppsButtonText("About"); break;
+        }
+    }
+
+    private void makeDeviceListButtonReflectCurrentButtonState()
+    {
+        // noinspection SwitchStatementWithTooFewBranches
+        switch (this.deviceListButtonState)
+        {
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+                this.resetDeviceListButtonText(); break;
+            default: this.setDeviceListButtonText("DeviceList.information()"); break;
+        }
+    }
+
+    private void makeScaleButtonReflectCurrentButtonState()
+    {
+        switch (this.scaleButtonState)
+        {
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+                this.resetScaleButtonText(); break;
+            case 1 : this.setScaleButtonText("ExtraDevice.formattedRead()"); break;
+            case 2 : this.setScaleButtonText("Scale.information()"        ); break;
+            case 3 : this.setScaleButtonText("Scale.formattedRead()"      ); break;
+            default: this.setScaleButtonText("Error!"                     ); break;
+        }
+    }
+
+    private void makeScaleReaderButtonReflectCurrentButtonState()
+    {
+        switch (this.scaleReaderButtonState)
+        {
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+                this.resetScaleReaderButtonText(); break;
+            case 1 : this.setScaleReaderButtonText("DeviceReader.cancel()"); break;
+            case 2 : this.setScaleReaderButtonText("ScaleReader.execute()"); break;
+            case 3 : this.setScaleReaderButtonText("ScaleReader.cancel()" ); break;
+            default: this.setScaleReaderButtonText("Error!"               ); break;
+        }
+    }
+    // endregion
     // endregion
 
     // region Overridden Methods
@@ -361,21 +428,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             default: this.buttonState =
                 org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
-
-        switch (this.buttonState)
-        {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
-                this.resetButtonText(); break;
-            case 1: this.setButtonText("Long Toast"                   ); break;
-            case 2: this.setButtonText("permissionDir.list()"         ); break;
-            case 3: this.setButtonText("requestDir.list() 1 of 3"     ); break;
-            case 4: this.setButtonText("requestDir.list() 2 of 3"     ); break;
-            case 5: this.setButtonText("requestDir.list() 3 of 3"     ); break;
-            case 6: this.setButtonText("http://www.example.org/"      ); break;
-            case 7: this.setButtonText("Master-Detail Flow"           ); break;
-            case 8: this.setButtonText("Changeable Master-Detail Flow"); break;
-            case 9: this.setButtonText("ChangeLog"                    ); break;
-        }
+        this.makeButtonReflectCurrentButtonState();
     }
 
     public void onOtherAppsButtonClick(final android.view.View view)
@@ -431,11 +484,11 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         switch (this.otherAppsButtonState)
         {
             case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
-                this.otherAppsButtonState++; this.setOtherAppsButtonText("About"); break;
+                this.otherAppsButtonState++; break;
             case 1: this.otherAppsButtonState =
-                    org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE;
-                this.resetOtherAppsButtonText(); break;
+                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
+        this.makeOtherAppsButtonReflectCurrentButtonState();
     }
 
     public void onDeviceListButtonClick(final android.view.View view)
@@ -454,13 +507,12 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         switch (this.deviceListButtonState)
         {
             case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
-                this.deviceListButtonState++;
-                this.setDeviceListButtonText("DeviceList.information()"); break;
+                this.deviceListButtonState++; break;
 
             default: this.deviceListButtonState =
-                    org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE;
-                this.resetDeviceListButtonText(); break;
+                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
+        this.makeDeviceListButtonReflectCurrentButtonState();
     }
 
     public void onScaleButtonClick(final android.view.View view)
@@ -493,16 +545,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             default: this.scaleButtonState =
                 org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
-
-        switch (this.scaleButtonState)
-        {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
-                this.resetScaleButtonText(); break;
-            case 1 : this.setScaleButtonText("ExtraDevice.formattedRead()"); break;
-            case 2 : this.setScaleButtonText("Scale.information()"        ); break;
-            case 3 : this.setScaleButtonText("Scale.formattedRead()"      ); break;
-            default: this.setScaleButtonText("Error!"                     ); break;
-        }
+        this.makeScaleButtonReflectCurrentButtonState();
     }
 
     public void onScaleReaderButtonClick(final android.view.View view)
@@ -552,16 +595,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             default: this.scaleReaderButtonState =
                 org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
-
-        switch (this.scaleReaderButtonState)
-        {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
-                this.resetScaleReaderButtonText(); break;
-            case 1 : this.setScaleReaderButtonText("DeviceReader.cancel()"); break;
-            case 2 : this.setScaleReaderButtonText("ScaleReader.execute()"); break;
-            case 3 : this.setScaleReaderButtonText("ScaleReader.cancel()" ); break;
-            default: this.setScaleReaderButtonText("Error!"               ); break;
-        }
+        this.makeScaleReaderButtonReflectCurrentButtonState();
     }
     // endregion
 }
