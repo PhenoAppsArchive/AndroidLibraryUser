@@ -8,10 +8,11 @@ package org.wheatgenetics.androidlibraryuser.mstrdtl;
  * android.view.View.OnClickListener
  * android.widget.EditText
  *
+ * org.wheatgenetics.javalib.mstrdtl.TestItem
+ *
  * org.wheatgenetics.androidlibrary.AlertDialog
  * org.wheatgenetics.androidlibrary.Utils
  *
- * org.wheatgenetics.androidlibraryuser.mstrdtl.Item
  * org.wheatgenetics.androidlibraryuser.R
  */
 class ChangeItemAlertDialog extends org.wheatgenetics.androidlibrary.AlertDialog
@@ -22,15 +23,17 @@ class ChangeItemAlertDialog extends org.wheatgenetics.androidlibrary.AlertDialog
     // region Fields
     private final org.wheatgenetics.androidlibraryuser.mstrdtl.ChangeItemAlertDialog.Handler
         handler;
-    private android.widget.EditText                           itemEditText;
-    private org.wheatgenetics.androidlibraryuser.mstrdtl.Item item = null ;
+
+    private android.widget.EditText                    itemEditText   ;
+    private org.wheatgenetics.javalib.mstrdtl.TestItem testItem = null;
     // endregion
 
     private void handleChangeItemDone()
     {
-        if (null != this.item && null != this.itemEditText)
-            this.item.setContent(org.wheatgenetics.androidlibrary.Utils.getText(this.itemEditText));
-        this.cancelAlertDialog(); assert null != this.handler; this.handler.handleChangeItemDone();
+        if (null != this.testItem && null != this.itemEditText) this.testItem.setContent(
+            org.wheatgenetics.androidlibrary.Utils.getText(this.itemEditText));
+        this.cancelAlertDialog();
+        if (null != this.handler) this.handler.handleChangeItemDone();
     }
 
     ChangeItemAlertDialog(final android.app.Activity activity,
@@ -45,21 +48,18 @@ class ChangeItemAlertDialog extends org.wheatgenetics.androidlibrary.AlertDialog
             final android.view.View view = this.layoutInflater().inflate(
                 org.wheatgenetics.androidlibraryuser.R.layout.alert_dialog_change_item,
                 null);
-            if (null == this.itemEditText)
-            {
-                assert null != view; this.itemEditText = view.findViewById(
-                    org.wheatgenetics.androidlibraryuser.R.id.itemEditText);
-            }
+            if (null != view && null == this.itemEditText) this.itemEditText = view.findViewById(
+                org.wheatgenetics.androidlibraryuser.R.id.itemEditText);
             this.setView(view);
         }
         this.setOKPositiveButton(null).setCancelNegativeButton();
     }
 
-    void show(final org.wheatgenetics.androidlibraryuser.mstrdtl.Item item)
+    void show(final org.wheatgenetics.javalib.mstrdtl.TestItem testItem)
     {
-        if (null != item && null != this.itemEditText)
+        if (null != testItem && null != this.itemEditText)
         {
-            this.item = item; this.itemEditText.setText(this.item.getContent());
+            this.testItem = testItem; this.itemEditText.setText(this.testItem.getContent());
 
             this.show();
             if (!this.positiveOnClickListenerHasBeenReplaced()) this.replacePositiveOnClickListener(

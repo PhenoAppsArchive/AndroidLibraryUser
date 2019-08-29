@@ -3,20 +3,22 @@ package org.wheatgenetics.androidlibraryuser.mstrdtl;
 /**
  * Uses:
  * android.support.annotation.NonNull
+ * android.support.annotation.RestrictTo
+ * android.support.annotation.RestrictTo.Scope
  *
  * org.wheatgenetics.javalib.mstrdtl.Item
+ * org.wheatgenetics.javalib.mstrdtl.TestItem
  *
- * org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.GetterChanger
+ * org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.HelperChanger
  *
  * org.wheatgenetics.androidlibraryuser.mstrdtl.BaseItemActivity
  * org.wheatgenetics.androidlibraryuser.mstrdtl.ChangeItemAlertDialog
  * org.wheatgenetics.androidlibraryuser.mstrdtl.ChangeItemAlertDialog.Handler
  * org.wheatgenetics.androidlibraryuser.mstrdtl.ChangeableListActivity
- * org.wheatgenetics.androidlibraryuser.mstrdtl.Item
  */
 public class ChangeableItemActivity
 extends    org.wheatgenetics.androidlibraryuser.mstrdtl.BaseItemActivity
-implements org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.GetterChanger
+implements org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.HelperChanger
 {
     private org.wheatgenetics.androidlibraryuser.mstrdtl.ChangeItemAlertDialog              // lazy
         changeItemAlertDialogInstance = null;                                               //  load
@@ -38,13 +40,14 @@ implements org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.GetterChanger
     }
 
     // region Overridden Methods
+    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
     @java.lang.Override protected java.lang.Class listActivityClass()
     { return org.wheatgenetics.androidlibraryuser.mstrdtl.ChangeableListActivity.class; }
 
-    // region org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.GetterChanger Overridden Method
+    // region org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.HelperChanger Overridden Method
     @java.lang.Override public void change(
     @android.support.annotation.NonNull final org.wheatgenetics.javalib.mstrdtl.Item item)
-    { this.changeItemAlertDialog().show((org.wheatgenetics.androidlibraryuser.mstrdtl.Item) item); }
+    { this.changeItemAlertDialog().show((org.wheatgenetics.javalib.mstrdtl.TestItem) item); }
     // endregion
     // endregion
 }

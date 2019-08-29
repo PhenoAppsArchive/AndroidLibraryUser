@@ -2,20 +2,20 @@ package org.wheatgenetics.androidlibraryuser.mstrdtl;
 
 /**
  * Uses:
- * android.support.annotation.IntRange
+ * android.support.annotation.RestrictTo
+ * android.support.annotation.RestrictTo.Scope
  *
- * org.wheatgenetics.javalib.mstrdtl.Item
+ * org.wheatgenetics.javalib.mstrdtl.Items
  *
  * org.wheatgenetics.androidlibrary.mstrdtl.ItemActivity
- * org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.Getter
+ * org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.Helper
  *
- * org.wheatgenetics.androidlibraryuser.mstrdtl.Items
+ * org.wheatgenetics.androidlibrarybuilder.mstrdtl.TestItems
  */
 abstract class BaseItemActivity extends org.wheatgenetics.androidlibrary.mstrdtl.ItemActivity
-implements org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.Getter
+implements org.wheatgenetics.androidlibrary.mstrdtl.ItemFragment.Helper
 {
-    @java.lang.Override public org.wheatgenetics.javalib.mstrdtl.Item get(
-    @android.support.annotation.IntRange(from = org.wheatgenetics.javalib.mstrdtl.Item.MIN_POSITION)
-        final int position)
-    { return org.wheatgenetics.androidlibraryuser.mstrdtl.Items.ITEMS().get(position); }
+    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @java.lang.Override protected org.wheatgenetics.javalib.mstrdtl.Items items()
+    { return org.wheatgenetics.androidlibraryuser.mstrdtl.TestItems.TEST_ITEMS(); }
 }
