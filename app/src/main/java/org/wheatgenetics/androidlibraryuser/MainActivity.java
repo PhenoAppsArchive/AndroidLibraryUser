@@ -54,7 +54,7 @@ package org.wheatgenetics.androidlibraryuser;
 public class MainActivity extends android.support.v7.app.AppCompatActivity
 implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver
 {
-    private static final int REQUEST_CODE = 1, MIN_BUTTON_COUNT = 0;
+    private static final int REQUEST_CODE = 1, MIN_BUTTON_STATE = 0;
 
     // region Fields
     private android.widget.TextView textView = null;
@@ -75,15 +75,12 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     private org.wheatgenetics.usb.ScaleReaderTester          scaleReaderTester    = null;
 
     @android.support.annotation.IntRange(
-    from = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT) private int
-        buttonClickCount = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT,
-        otherAppsButtonClickCount =
-            org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT,
-        deviceListButtonClickCount =
-            org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT,
-        scaleButtonClickCount = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT,
-        scaleReaderButtonClickCount =
-            org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT;
+    from = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE) private int
+        buttonState            = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE,
+        otherAppsButtonState   = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE,
+        deviceListButtonState  = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE,
+        scaleButtonState       = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE,
+        scaleReaderButtonState = org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE;
 
     private android.content.Intent webIntentInstance = null,
         listIntentInstance = null, changeableListIntentInstance = null;
@@ -318,9 +315,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // region Event Handlers
     public void onButtonClick(final android.view.View view)
     {
-        switch (this.buttonClickCount)
+        switch (this.buttonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 org.wheatgenetics.androidlibrary.Utils.showShortToast(this,"short");
                 break;
 
@@ -356,18 +353,18 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             case 9: this.showChangeLog()                           ; break;
         }
 
-        switch (this.buttonClickCount)
+        switch (this.buttonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT: case 1:
-            case 2: case 3: case 4: case 5: case 6: case 7: case 8: this.buttonClickCount++; break;
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE: case 1:
+            case 2: case 3: case 4: case 5: case 6: case 7: case 8: this.buttonState++; break;
 
-            default: this.buttonClickCount =
-                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT; break;
+            default: this.buttonState =
+                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
 
-        switch (this.buttonClickCount)
+        switch (this.buttonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 this.resetButtonText(); break;
             case 1: this.setButtonText("Long Toast"                   ); break;
             case 2: this.setButtonText("permissionDir.list()"         ); break;
@@ -383,9 +380,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
     public void onOtherAppsButtonClick(final android.view.View view)
     {
-        switch (this.otherAppsButtonClickCount)
+        switch (this.otherAppsButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 if (null == this.otherAppsAlertDialog)
                     this.otherAppsAlertDialog = new org.wheatgenetics.about.OtherAppsAlertDialog(
                         this, org.wheatgenetics.about.OtherApps.Index.INVENTORY);
@@ -424,19 +421,19 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                 } break;
         }
 
-        switch (this.otherAppsButtonClickCount)
+        switch (this.otherAppsButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 this.otherAppsAlertDialog.show(); break;
             case 1: this.aboutAlertDialog.show(); break;
         }
 
-        switch (this.otherAppsButtonClickCount)
+        switch (this.otherAppsButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
-                this.otherAppsButtonClickCount++; this.setOtherAppsButtonText("About"); break;
-            case 1: this.otherAppsButtonClickCount =
-                    org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT;
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+                this.otherAppsButtonState++; this.setOtherAppsButtonText("About"); break;
+            case 1: this.otherAppsButtonState =
+                    org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE;
                 this.resetOtherAppsButtonText(); break;
         }
     }
@@ -446,31 +443,31 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         if (null == this.deviceListTester)
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
 
-        switch (this.deviceListButtonClickCount)
+        switch (this.deviceListButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 this.setTextViewText(this.deviceListTester.size()); break;
             case 1: this.setTextViewText(this.deviceListTester.information()); break;
         }
 
         // noinspection SwitchStatementWithTooFewBranches
-        switch (this.deviceListButtonClickCount)
+        switch (this.deviceListButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
-                this.deviceListButtonClickCount++;
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+                this.deviceListButtonState++;
                 this.setDeviceListButtonText("DeviceList.information()"); break;
 
-            default: this.deviceListButtonClickCount =
-                    org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT;
+            default: this.deviceListButtonState =
+                    org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE;
                 this.resetDeviceListButtonText(); break;
         }
     }
 
     public void onScaleButtonClick(final android.view.View view)
     {
-        switch (this.scaleButtonClickCount)
+        switch (this.scaleButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT: case 1:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE: case 1:
                 if (null == this.extraDeviceTester) this.extraDeviceTester =
                     new org.wheatgenetics.usb.ExtraDeviceTester(this);
                 break;
@@ -479,27 +476,27 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                 new org.wheatgenetics.usb.ScaleTester(this); break;
         }
 
-        switch (this.scaleButtonClickCount)
+        switch (this.scaleButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 this.setTextViewText(this.extraDeviceTester.information()); break;
             case 1: this.setTextViewText(this.extraDeviceTester.handlingFormattedRead()); break;
             case 2: this.setTextViewText(this.scaleTester.information                ()); break;
             case 3: this.setTextViewText(this.scaleTester.handlingFormattedRead      ()); break;
         }
 
-        switch (this.scaleButtonClickCount)
+        switch (this.scaleButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
-            case 1: case 2: this.scaleButtonClickCount++; break;
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+            case 1: case 2: this.scaleButtonState++; break;
 
-            default: this.scaleButtonClickCount =
-                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT; break;
+            default: this.scaleButtonState =
+                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
 
-        switch (this.scaleButtonClickCount)
+        switch (this.scaleButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 this.resetScaleButtonText(); break;
             case 1 : this.setScaleButtonText("ExtraDevice.formattedRead()"); break;
             case 2 : this.setScaleButtonText("Scale.information()"        ); break;
@@ -510,9 +507,9 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
     public void onScaleReaderButtonClick(final android.view.View view)
     {
-        switch (this.scaleReaderButtonClickCount)
+        switch (this.scaleReaderButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT: case 1:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE: case 1:
                 if (null == this.deviceReaderTester) this.deviceReaderTester =
                     new org.wheatgenetics.usb.DeviceReaderTester(this,
                         new org.wheatgenetics.usb.DeviceReaderTester.Publisher()
@@ -538,26 +535,27 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             break;
         }
 
-        switch (this.scaleReaderButtonClickCount)
+        switch (this.scaleReaderButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 this.deviceReaderTester.executeReader(); break;
             case 1: this.deviceReaderTester.cancelReader(); break;
             case 2: this.scaleReaderTester.executeReader(); break;
             case 3: this.scaleReaderTester.cancelReader (); break;
         }
 
-        switch (this.scaleReaderButtonClickCount)
+        switch (this.scaleReaderButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
-            case 1: case 2: this.scaleReaderButtonClickCount++; break;
-            default: this.scaleReaderButtonClickCount =
-                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT; break;
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
+            case 1: case 2: this.scaleReaderButtonState++; break;
+
+            default: this.scaleReaderButtonState =
+                org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE; break;
         }
 
-        switch (this.scaleReaderButtonClickCount)
+        switch (this.scaleReaderButtonState)
         {
-            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_COUNT:
+            case org.wheatgenetics.androidlibraryuser.MainActivity.MIN_BUTTON_STATE:
                 this.resetScaleReaderButtonText(); break;
             case 1 : this.setScaleReaderButtonText("DeviceReader.cancel()"); break;
             case 2 : this.setScaleReaderButtonText("ScaleReader.execute()"); break;
