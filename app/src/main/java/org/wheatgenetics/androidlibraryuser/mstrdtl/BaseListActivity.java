@@ -18,7 +18,12 @@ abstract class BaseListActivity extends org.wheatgenetics.androidlibrary.mstrdtl
     @java.lang.Override protected org.wheatgenetics.javalib.mstrdtl.Items items()
     {
         if (null == this.itemsInstance)
-            this.itemsInstance = new org.wheatgenetics.javalib.mstrdtl.TestItems();
+        {
+            final org.wheatgenetics.javalib.mstrdtl.TestItems testItems =
+                new org.wheatgenetics.javalib.mstrdtl.TestItems();
+            this.itemsInstance = testItems.fromJson(this.getJson());
+            if (null == this.itemsInstance) this.itemsInstance = testItems;
+        }
         return this.itemsInstance;
     }
 }
