@@ -55,7 +55,8 @@ public class MainActivity extends android.support.v7.app.AppCompatActivity
 implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver
 {
     // region Constants
-    private static final int              REQUEST_CODE = 1, MIN_BUTTON_STATE = 0;
+    private static final int MIN_BUTTON_STATE = 0,
+        PERMISSIONS_REQUEST_CODE = 1;
     private static final java.lang.String TEXT_VIEW_TEXT_KEY = "textViewText",
         BUTTON_STATES_KEY = "buttonStates", EDIT_TEXT_TEXT_KEY = "editTextText";
     // endregion
@@ -291,29 +292,23 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         super.onCreate(savedInstanceState);
         this.setContentView(org.wheatgenetics.androidlibraryuser.R.layout.activity_main);
 
-
+        // region Find views.
         this.textView = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.textView);
 
-
         this.button = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.button);
-
         this.otherAppsButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.otherAppsButton);
-
         this.deviceListButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.deviceListButton);
-
         this.scaleButton = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleButton);
-
         this.scaleReaderButton =
             this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.scaleReaderButton);
-
 
         this.editText = this.findViewById(org.wheatgenetics.androidlibraryuser.R.id.editText);
         new org.wheatgenetics.androidlibrary.DebouncingEditorActionListener(this.editText,
             this, org.wheatgenetics.androidlibraryuser.BuildConfig.DEBUG,
             /* delayMillis => */1000);
-
+        // endregion
 
         {
             final java.lang.String
@@ -323,47 +318,54 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
             this.requestDir = new org.wheatgenetics.androidlibrary.RequestDir(
                 /* activity    => */this, name, blankHiddenFileName,
                 /* requestCode => */
-                    org.wheatgenetics.androidlibraryuser.MainActivity.REQUEST_CODE);
+                    org.wheatgenetics.androidlibraryuser.MainActivity.PERMISSIONS_REQUEST_CODE);
         }
-
 
         if (null != savedInstanceState)
         {
-            if (savedInstanceState.containsKey(
-            org.wheatgenetics.androidlibraryuser.MainActivity.TEXT_VIEW_TEXT_KEY))
-                this.setTextViewText(savedInstanceState.getCharSequence(
-                    org.wheatgenetics.androidlibraryuser.MainActivity.TEXT_VIEW_TEXT_KEY));
-
-            if (savedInstanceState.containsKey(
-            org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY))
             {
-                // noinspection CStyleArrayDeclaration
-                final int buttonStates[] = savedInstanceState.getIntArray(
-                    org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY);
-                if (null != buttonStates)
-                {
-                    this.buttonState            = buttonStates[0];
-                    this.otherAppsButtonState   = buttonStates[1];
-                    this.deviceListButtonState  = buttonStates[2];
-                    this.scaleButtonState       = buttonStates[3];
-                    this.scaleReaderButtonState = buttonStates[4];
-
-                    if (1 == this.scaleReaderButtonState || 3 == this.scaleReaderButtonState)
-                        this.scaleReaderButtonState = this.scaleReaderButtonState - 1;
-                }
+                final java.lang.String TEXT_VIEW_TEXT_KEY =
+                    org.wheatgenetics.androidlibraryuser.MainActivity.TEXT_VIEW_TEXT_KEY;
+                if (savedInstanceState.containsKey(TEXT_VIEW_TEXT_KEY))
+                    this.setTextViewText(savedInstanceState.getCharSequence(TEXT_VIEW_TEXT_KEY));
             }
 
-            if (savedInstanceState.containsKey(
-            org.wheatgenetics.androidlibraryuser.MainActivity.EDIT_TEXT_TEXT_KEY))
-                this.editText.setText(savedInstanceState.getCharSequence(
-                    org.wheatgenetics.androidlibraryuser.MainActivity.EDIT_TEXT_TEXT_KEY));
+            {
+                final java.lang.String EDIT_TEXT_TEXT_KEY =
+                    org.wheatgenetics.androidlibraryuser.MainActivity.EDIT_TEXT_TEXT_KEY;
+                if (savedInstanceState.containsKey(EDIT_TEXT_TEXT_KEY))
+                    this.editText.setText(savedInstanceState.getCharSequence(EDIT_TEXT_TEXT_KEY));
+            }
+
+            {
+                final java.lang.String BUTTON_STATES_KEY =
+                    org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY;
+                if (savedInstanceState.containsKey(BUTTON_STATES_KEY))
+                {
+                    // noinspection CStyleArrayDeclaration
+                    final int buttonStates[] = savedInstanceState.getIntArray(BUTTON_STATES_KEY);
+                    if (null != buttonStates)
+                    {
+                        this.buttonState            = buttonStates[0];
+                        this.otherAppsButtonState   = buttonStates[1];
+                        this.deviceListButtonState  = buttonStates[2];
+                        this.scaleButtonState       = buttonStates[3];
+                        this.scaleReaderButtonState = buttonStates[4];
+
+                        if (1 == this.scaleReaderButtonState || 3 == this.scaleReaderButtonState)
+                            this.scaleReaderButtonState = this.scaleReaderButtonState - 1;
+                    }
+                }
+            }
         }
 
+        // region Make buttons reflect current button states.
         this.makeButtonReflectCurrentButtonState           ();
         this.makeOtherAppsButtonReflectCurrentButtonState  ();
         this.makeDeviceListButtonReflectCurrentButtonState ();
         this.makeScaleButtonReflectCurrentButtonState      ();
         this.makeScaleReaderButtonReflectCurrentButtonState();
+        // endregion
     }
 
     @java.lang.Override public boolean onCreateOptionsMenu(final android.view.Menu menu)
@@ -401,7 +403,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     @java.lang.SuppressWarnings({"CStyleArrayDeclaration"}) @android.support.annotation.NonNull
         final int grantResults[])
     {
-        if (org.wheatgenetics.androidlibraryuser.MainActivity.REQUEST_CODE == requestCode)
+        if (org.wheatgenetics.androidlibraryuser.MainActivity.PERMISSIONS_REQUEST_CODE
+        ==  requestCode                                                               )
         {
             boolean permissionFound = false;
             for (final java.lang.String permission: permissions)
@@ -416,20 +419,20 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
 
     @java.lang.Override protected void onSaveInstanceState(final android.os.Bundle outState)
     {
-        super.onSaveInstanceState(outState);
         if (null != outState)
         {
-            outState.putIntArray(
-                org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY, new int[]{
-                    this.buttonState, this.otherAppsButtonState, this.deviceListButtonState,
-                    this.scaleButtonState, this.scaleReaderButtonState});
             if (null != this.textView) outState.putCharSequence(
                 org.wheatgenetics.androidlibraryuser.MainActivity.TEXT_VIEW_TEXT_KEY,
                 this.textView.getText()                                             );
             if (null != this.editText) outState.putCharSequence(
                 org.wheatgenetics.androidlibraryuser.MainActivity.EDIT_TEXT_TEXT_KEY,
                 this.editText.getText()                                             );
+            outState.putIntArray(
+                org.wheatgenetics.androidlibraryuser.MainActivity.BUTTON_STATES_KEY, new int[]{
+                    this.buttonState, this.otherAppsButtonState, this.deviceListButtonState,
+                    this.scaleButtonState, this.scaleReaderButtonState});
         }
+        super.onSaveInstanceState(outState);
     }
 
     // region org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver Overridden Method
@@ -465,7 +468,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                             /* file     => */"index.html");
                     }
                     catch (final java.net.MalformedURLException e) { url = null; }
-                    response = org.wheatgenetics.javalib.Utils.threadedGet(url);
+                    response = org.wheatgenetics.javalib.Utils.threadedGet(url,500);
                 }
                 if (null == response)
                     this.setTextViewText("response is null");
@@ -510,7 +513,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
                                 this.getPackageName(), /* flags => */0);
                         versionName = null == packageInfo ?
                             org.wheatgenetics.javalib.Utils.adjust(null) :
-                            packageInfo.versionName                                 ;
+                            packageInfo.versionName;
                     }
                     catch (final android.content.pm.PackageManager.NameNotFoundException e)
                     { versionName = org.wheatgenetics.javalib.Utils.adjust(null); }
