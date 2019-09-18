@@ -9,6 +9,7 @@ package org.wheatgenetics.androidlibraryuser;
  *
  * org.wheatgenetics.androidlibraryuser.R
  */
+@java.lang.SuppressWarnings({"unused"})
 public class WebViewActivity extends android.support.v7.app.AppCompatActivity
 {
     static final java.lang.String CONTENT = "content", ENCODING = "encoding";

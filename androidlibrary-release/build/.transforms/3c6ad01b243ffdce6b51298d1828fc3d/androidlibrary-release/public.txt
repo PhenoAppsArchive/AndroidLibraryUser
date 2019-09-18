@@ -1,0 +1,4 @@
+id cameraOptionsMenuItem
+menu camera_options_menu
+string cancelButtonText
+string okButtonText
