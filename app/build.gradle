@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.1"
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "org.wheatgenetics.androidlibraryuser"
         minSdkVersion 16
@@ -30,5 +30,5 @@ dependencies {
     implementation project(':javalib')
     implementation project(':androidlibrary-release')
 
-    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.google.code.gson:gson:2.8.6"
 }
