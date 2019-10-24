@@ -9,3 +9,5 @@
 /build
 /captures
 .externalNativeBuild
+/javalib/build/
+/androidlibrary-release/build/
