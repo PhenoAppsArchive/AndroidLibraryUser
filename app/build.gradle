@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions { exclude "META-INF/DEPENDENCIES" }
 }
 
 dependencies {
@@ -27,8 +28,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(':javalib')
-    implementation project(':androidlibrary-release')
+    implementation 'org.phenoapps:javalib:1.0.2'
+    implementation 'org.phenoapps:androidlibrary:1.0.0'
 
     implementation "com.google.code.gson:gson:2.8.6"
 }
