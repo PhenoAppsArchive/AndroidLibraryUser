@@ -2,9 +2,9 @@ package org.wheatgenetics.androidlibraryuser.mstrdtl;
 
 /**
  * Uses:
- * android.support.annotation.NonNull
- * android.support.annotation.RestrictTo
- * android.support.annotation.RestrictTo.Scope
+ * androidx.annotation.NonNull
+ * androidx.annotation.RestrictTo
+ * androidx.annotation.RestrictTo.Scope
  *
  * org.wheatgenetics.javalib.mstrdtl.Items
  * org.wheatgenetics.javalib.mstrdtl.TestItems
@@ -18,8 +18,8 @@ public class ItemActivity extends org.wheatgenetics.androidlibrary.mstrdtl.ItemA
     private org.wheatgenetics.javalib.mstrdtl.Items itemsInstance = null;               // lazy load
 
     // region Overridden Methods
-    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
-    @java.lang.Override @android.support.annotation.NonNull
+    @androidx.annotation.RestrictTo(androidx.annotation.RestrictTo.Scope.SUBCLASSES)
+    @java.lang.Override @androidx.annotation.NonNull
     protected org.wheatgenetics.javalib.mstrdtl.Items items()
     {
         if (null == this.itemsInstance) this.itemsInstance =
@@ -27,7 +27,7 @@ public class ItemActivity extends org.wheatgenetics.androidlibrary.mstrdtl.ItemA
         return this.itemsInstance;
     }
 
-    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @androidx.annotation.RestrictTo(androidx.annotation.RestrictTo.Scope.SUBCLASSES)
     @java.lang.Override protected java.lang.Class listActivityClass()
     { return org.wheatgenetics.androidlibraryuser.mstrdtl.ListActivity.class; }
     // endregion

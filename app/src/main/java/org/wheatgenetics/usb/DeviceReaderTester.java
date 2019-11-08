@@ -3,9 +3,10 @@ package org.wheatgenetics.usb;
 /**
  * Uses:
  * android.app.Activity
- * android.support.annotation.NonNull
- * android.support.annotation.RestrictTo
- * android.support.annotation.RestrictTo.Scope
+ *
+ * androidx.annotation.NonNull
+ * androidx.annotation.RestrictTo
+ * androidx.annotation.RestrictTo.Scope
  *
  * org.wheatgenetics.usb.Device.Exception
  * org.wheatgenetics.usb.DeviceReader
@@ -38,20 +39,19 @@ public class DeviceReaderTester extends java.lang.Object
     }
 
     public DeviceReaderTester(
-    @android.support.annotation.NonNull final android.app.Activity activity,
-    @android.support.annotation.NonNull
-        final org.wheatgenetics.usb.DeviceReaderTester.Publisher publisher)
+    @androidx.annotation.NonNull final android.app.Activity                               activity ,
+    @androidx.annotation.NonNull final org.wheatgenetics.usb.DeviceReaderTester.Publisher publisher)
     { super(); this.activity = activity; this.publisher = publisher; }
 
     // region Package Methods
-    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @androidx.annotation.RestrictTo(androidx.annotation.RestrictTo.Scope.SUBCLASSES)
     void publish(final java.lang.String data)
     { assert null != this.publisher; this.publisher.publish(data); }
 
-    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @androidx.annotation.RestrictTo(androidx.annotation.RestrictTo.Scope.SUBCLASSES)
     android.app.Activity getActivity() { return this.activity; }
 
-    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @androidx.annotation.RestrictTo(androidx.annotation.RestrictTo.Scope.SUBCLASSES)
     org.wheatgenetics.usb.DeviceReader deviceReader()
     {
         if (null == this.deviceReaderInstance)

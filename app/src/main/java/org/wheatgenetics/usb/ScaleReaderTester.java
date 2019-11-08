@@ -3,7 +3,8 @@ package org.wheatgenetics.usb;
 /**
  * Uses:
  * android.app.Activity
- * android.support.annotation.NonNull
+ *
+ * androidx.annotation.NonNull
  *
  * org.wheatgenetics.usb.Device.Exception
  * org.wheatgenetics.usb.DeviceReader
@@ -51,8 +52,7 @@ public class ScaleReaderTester extends org.wheatgenetics.usb.DeviceReaderTester
     }
 
     public ScaleReaderTester(
-    @android.support.annotation.NonNull final android.app.Activity activity,
-    @android.support.annotation.NonNull
-        final org.wheatgenetics.usb.DeviceReaderTester.Publisher publisher)
+    @androidx.annotation.NonNull final android.app.Activity                               activity ,
+    @androidx.annotation.NonNull final org.wheatgenetics.usb.DeviceReaderTester.Publisher publisher)
     { super(activity, publisher); }
 }

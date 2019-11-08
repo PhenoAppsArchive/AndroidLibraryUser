@@ -4,13 +4,14 @@ package org.wheatgenetics.androidlibraryuser;
  * Uses:
  * android.content.Intent
  * android.os.Bundle
- * android.support.v7.app.AppCompatActivity
  * android.webkit.WebView
+ *
+ * androidx.appcompat.app.AppCompatActivity
  *
  * org.wheatgenetics.androidlibraryuser.R
  */
 @java.lang.SuppressWarnings({"unused"})
-public class WebViewActivity extends android.support.v7.app.AppCompatActivity
+public class WebViewActivity extends androidx.appcompat.app.AppCompatActivity
 {
     static final java.lang.String CONTENT = "content", ENCODING = "encoding";
 

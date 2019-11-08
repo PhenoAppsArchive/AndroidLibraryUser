@@ -2,9 +2,9 @@ package org.wheatgenetics.androidlibraryuser.mstrdtl;
 
 /**
  * Uses:
- * android.support.annotation.NonNull
- * android.support.annotation.RestrictTo
- * android.support.annotation.RestrictTo.Scope
+ * androidx.annotation.NonNull
+ * androidx.annotation.RestrictTo
+ * androidx.annotation.RestrictTo.Scope
  *
  * org.wheatgenetics.javalib.mstrdtl.Items
  * org.wheatgenetics.javalib.mstrdtl.TestItems
@@ -19,8 +19,8 @@ public class ListActivity extends org.wheatgenetics.androidlibrary.mstrdtl.ListA
     private org.wheatgenetics.javalib.mstrdtl.Items itemsInstance = null;               // lazy load
 
     // region Overridden Methods
-    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
-    @java.lang.Override @android.support.annotation.NonNull
+    @androidx.annotation.RestrictTo(androidx.annotation.RestrictTo.Scope.SUBCLASSES)
+    @java.lang.Override @androidx.annotation.NonNull
     protected org.wheatgenetics.javalib.mstrdtl.Items items()
     {
         if (null == this.itemsInstance) this.itemsInstance =
@@ -28,7 +28,7 @@ public class ListActivity extends org.wheatgenetics.androidlibrary.mstrdtl.ListA
         return this.itemsInstance;
     }
 
-    @android.support.annotation.RestrictTo(android.support.annotation.RestrictTo.Scope.SUBCLASSES)
+    @androidx.annotation.RestrictTo(androidx.annotation.RestrictTo.Scope.SUBCLASSES)
     @java.lang.Override
     protected org.wheatgenetics.androidlibrary.mstrdtl.OnePaneAdapter makeOnePaneAdapter()
     { return new org.wheatgenetics.androidlibraryuser.mstrdtl.OnePaneAdapter(this.items()); }

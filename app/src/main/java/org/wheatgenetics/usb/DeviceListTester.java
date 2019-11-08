@@ -4,7 +4,8 @@ package org.wheatgenetics.usb;
  * Uses:
  * android.annotation.SuppressLint
  * android.app.Activity
- * android.support.annotation.NonNull
+ *
+ * androidx.annotation.NonNull
  *
  * org.wheatgenetics.usb.DeviceList
  */
@@ -23,7 +24,7 @@ public class DeviceListTester extends java.lang.Object
         return this.deviceListInstance;
     }
 
-    public DeviceListTester(@android.support.annotation.NonNull final android.app.Activity activity)
+    public DeviceListTester(@androidx.annotation.NonNull final android.app.Activity activity)
     { super(); this.activity = activity; }
 
     // region Public Methods
