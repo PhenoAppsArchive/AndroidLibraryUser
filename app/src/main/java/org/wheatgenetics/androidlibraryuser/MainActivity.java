@@ -58,7 +58,6 @@ package org.wheatgenetics.androidlibraryuser;
  * org.wheatgenetics.androidlibraryuser.R
  * org.wheatgenetics.androidlibraryuser.WebViewActivity
  */
-@java.lang.SuppressWarnings({"unused"})
 public class MainActivity extends androidx.appcompat.app.AppCompatActivity
 implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Receiver
 {
@@ -507,7 +506,7 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
     // endregion
 
     // region Event Handlers
-    public void onButtonClick(final android.view.View view)
+    public void onButtonClick(@java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.buttonState)
         {
@@ -562,7 +561,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         this.makeButtonReflectCurrentButtonState();
     }
 
-    public void onOtherAppsButtonClick(final android.view.View view)
+    public void onOtherAppsButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.otherAppsButtonState)
         {
@@ -622,7 +622,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         this.makeOtherAppsButtonReflectCurrentButtonState();
     }
 
-    public void onDeviceListButtonClick(final android.view.View view)
+    public void onDeviceListButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         if (null == this.deviceListTester)
             this.deviceListTester = new org.wheatgenetics.usb.DeviceListTester(this);
@@ -646,7 +647,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         this.makeDeviceListButtonReflectCurrentButtonState();
     }
 
-    public void onScaleButtonClick(final android.view.View view)
+    public void onScaleButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.scaleButtonState)
         {
@@ -679,7 +681,8 @@ implements org.wheatgenetics.androidlibrary.DebouncingEditorActionListener.Recei
         this.makeScaleButtonReflectCurrentButtonState();
     }
 
-    public void onScaleReaderButtonClick(final android.view.View view)
+    public void onScaleReaderButtonClick(
+    @java.lang.SuppressWarnings({"unused"}) final android.view.View view)
     {
         switch (this.scaleReaderButtonState)
         {
